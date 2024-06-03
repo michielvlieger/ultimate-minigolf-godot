@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhcnsp7x8c6ul"]
+
+[ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://golfball.png" id="1_4bamn"]
+[ext_resource type="Script" path="res://ball.gd" id="1_o2ckr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_18r1y"]
+radius = 5.0
+
+[node name="Ball" type="RigidBody2D"]
+gravity_scale = 0.0
+linear_damp = 1.5
+script = ExtResource("1_o2ckr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0280374, 0.0280374)
+texture = ExtResource("1_4bamn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_18r1y")
+
+[node name="AimingLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0)
+width = 2.0
+default_color = Color(0.780392, 0, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
