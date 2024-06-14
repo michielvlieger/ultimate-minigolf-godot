@@ -23,6 +23,10 @@ func _physics_process(delta):
 	if current_state:
 		current_state.physics_update(delta)
 
+func _input(event):
+	if current_state:
+		current_state.input(event)
+
 func on_child_transition(state, new_state_name):
 	if state != current_state:
 		return
@@ -32,7 +36,7 @@ func on_child_transition(state, new_state_name):
 		return
 	
 	if current_state:
-		current_state.exit()
+		await current_state.exit()
 	
 	new_state.enter()
 	

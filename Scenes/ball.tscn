@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhcnsp7x8c6ul"]
+[gd_scene load_steps=7 format=3 uid="uid://bhcnsp7x8c6ul"]
 
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_4bamn"]
 [ext_resource type="Script" path="res://Scripts/States/StateMachine.gd" id="3_inn6g"]
 [ext_resource type="Script" path="res://Scripts/States/BallStates/BallIdle.gd" id="4_t1086"]
 [ext_resource type="Script" path="res://Scripts/States/BallStates/BallMoving.gd" id="6_a7aol"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odjwi"]
+bounce = 0.7
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_18r1y"]
 radius = 5.0
 
 [node name="Ball" type="RigidBody2D"]
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_odjwi")
 gravity_scale = 0.0
-linear_damp = 1.5
+linear_damp = 1.2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0280374, 0.0280374)

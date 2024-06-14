@@ -3,33 +3,39 @@ class_name BallIdle
 
 @onready var ball = $"../.."
 @onready var aiming_line = $"../../AimingLine"
+
 @export
-var max_speed:float = 1000
+var max_speed:float = 1500
+
 var mouse_clicked_position = null
 var isAiming = false
 
-func _input(event):
-	if event.is_action_pressed("click"):
-		start_aiming()
-	if event.is_action_released("click"):
-		if(Vector2(get_local_mouse_position()-mouse_clicked_position).length() < 10):
-			stop_aiming()
-		else:
-			transitioned.emit(self, "moving")
+func enter():
+	mouse_clicked_position = null
+	isAiming = false
 
-func physics_update(_delta):
-	if(isAiming):
+func input(event):
+	if !isAiming && event.is_action_pressed("click"):
+		start_aiming()
+	if isAiming:
 		var relative_shooting_vector = get_relative_shooting_vector()
-		relative_shooting_vector /= 2
-		aiming_line.set_point_position(1,relative_shooting_vector.limit_length(max_speed/2))
-				
-func exit():
-	ball.apply_central_impulse(get_relative_shooting_vector().limit_length(max_speed))
-	stop_aiming()
+		if event is InputEventMouseMotion:
+			var aiming_line_vector = relative_shooting_vector.rotated(-ball.global_rotation)
+			aiming_line_vector = aiming_line_vector.limit_length(max_speed)
+			aiming_line_vector = aiming_line_vector / max_speed * 400
+			aiming_line.set_point_position(1,aiming_line_vector)
+		if event.is_action_released("click"):
+			if(relative_shooting_vector.length() > 10):
+				ball.apply_central_impulse(relative_shooting_vector.limit_length(max_speed))
+			stop_aiming()
+
+func update(_delta):
+	if(ball.linear_velocity.length() > 2):
+		transitioned.emit(self, "moving")
 	
 func start_aiming():
-	mouse_clicked_position = get_global_mouse_position()
-	aiming_line.add_point(position)
+	mouse_clicked_position = get_local_mouse_position()
+	aiming_line.add_point(get_relative_shooting_vector().rotated(-ball.global_rotation))
 	isAiming=true
 	
 func stop_aiming():
@@ -38,4 +44,4 @@ func stop_aiming():
 	isAiming = false
 	
 func get_relative_shooting_vector():
-	return(get_global_mouse_position()-mouse_clicked_position)
+	return(mouse_clicked_position-get_local_mouse_position())
