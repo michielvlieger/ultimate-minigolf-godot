@@ -11,6 +11,7 @@ var mouse_clicked_position = null
 var isAiming = false
 
 func enter():
+	print("entered idle")
 	mouse_clicked_position = null
 	isAiming = false
 

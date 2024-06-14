@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=8 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
 [ext_resource type="PackedScene" uid="uid://bhcnsp7x8c6ul" path="res://Scenes/ball.tscn" id="2_jtsqw"]
+[ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
+[ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="4_3kftb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8p5qj"]
 
@@ -528,7 +530,7 @@ terrain_set_0/terrain_0/name = "course terrain"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.996078, 1)
 sources/0 = SubResource("TileSetAtlasSource_v7vhj")
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_i3i4l")
@@ -536,5 +538,13 @@ format = 2
 layer_0/name = "course"
 layer_0/tile_data = PackedInt32Array(262150, 196608, 5, 262151, 65536, 2, 262152, 65536, 4, 196616, 131072, 1, 196615, 65536, 1, 196614, 0, 1, 131078, 393216, 1, 65542, 0, 0, 65543, 65536, 0, 65544, 131072, 0, 131080, 393216, 2, 131081, 65536, 3, 131082, 327680, 5, 65546, 196608, 0, 196618, 196608, 2, 131083, 131072, 3, 131079, 65536, 1, 327688, 196608, 1, 393224, 65536, 5, 458760, 131072, 5, 458761, 65536, 3, 393226, 0, 0, 393227, 131072, 0, 458763, 131072, 2, 458762, 196608, 5, 458759, 65536, 2, 393223, 65536, 0, 393222, 65536, 0, 458758, 65536, 2, 458757, 196608, 5, 393221, 0, 0, 458756, 65536, 3, 458755, 262144, 6, 393219, 65536, 4, 393218, 0, 2, 327682, 0, 0, 327683, 131072, 4, 327684, 393216, 6, 262148, 262144, 5, 196612, 196608, 1, 131076, 262144, 4, 131077, 65536, 3, 262149, 65536, 3)
 
-[node name="Ball" parent="." instance=ExtResource("2_jtsqw")]
+[node name="Hole" parent="." instance=ExtResource("3_oyr87")]
+position = Vector2(517, 153)
+
+[node name="ScoreManager" type="Node2D" parent="."]
+script = ExtResource("4_3kftb")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Ball" parent="Players" instance=ExtResource("2_jtsqw")]
 position = Vector2(473, 226)
