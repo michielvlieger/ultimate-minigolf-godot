@@ -6,6 +6,8 @@ var current_state: State
 var states: Dictionary = {}
 
 func _ready():
+	if !is_multiplayer_authority():
+		return
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child

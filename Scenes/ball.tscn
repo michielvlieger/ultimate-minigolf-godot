@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhcnsp7x8c6ul"]
+[gd_scene load_steps=11 format=3 uid="uid://bhcnsp7x8c6ul"]
 
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_0r2ib"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_4bamn"]
 [ext_resource type="Script" path="res://Scripts/States/StateMachine.gd" id="3_inn6g"]
 [ext_resource type="Script" path="res://Scripts/States/BallStates/BallIdle.gd" id="4_t1086"]
@@ -13,12 +14,19 @@ bounce = 0.7
 [sub_resource type="CircleShape2D" id="CircleShape2D_18r1y"]
 radius = 5.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h03tr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Ball" type="RigidBody2D" groups=["balls"]]
 z_index = 10
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_odjwi")
 gravity_scale = 0.0
+can_sleep = false
 linear_damp = 1.2
+script = ExtResource("1_0r2ib")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0280374, 0.0280374)
@@ -36,6 +44,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 zoom = Vector2(2, 2)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -53,3 +62,6 @@ script = ExtResource("5_1btx3")
 
 [node name="Scored" type="Node2D" parent="StateMachine"]
 script = ExtResource("6_86dxc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_h03tr")

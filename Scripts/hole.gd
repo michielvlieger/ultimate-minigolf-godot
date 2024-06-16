@@ -12,7 +12,7 @@ func _on_body_exited(body):
 		ballsInArea.erase(body.name)
 		body.get_node("StateMachine").on_child_transition(body.get_node("StateMachine/Scoring"), "moving")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	for key in ballsInArea:
 		var ball = ballsInArea[key]
 		if ball.get_node("StateMachine").current_state.name.to_lower() == "scoring":

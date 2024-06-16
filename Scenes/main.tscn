@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=9 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_o1k6n"]
 [ext_resource type="PackedScene" uid="uid://bhcnsp7x8c6ul" path="res://Scenes/ball.tscn" id="2_jtsqw"]
 [ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
 [ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="4_3kftb"]
@@ -530,7 +531,10 @@ terrain_set_0/terrain_0/name = "course terrain"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.996078, 1)
 sources/0 = SubResource("TileSetAtlasSource_v7vhj")
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player_spawn")]
+script = ExtResource("1_o1k6n")
+player_scene = ExtResource("2_jtsqw")
+player_spawn = NodePath("Players")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_i3i4l")
@@ -545,6 +549,25 @@ position = Vector2(517, 153)
 script = ExtResource("4_3kftb")
 
 [node name="Players" type="Node2D" parent="."]
+position = Vector2(478, 222)
 
-[node name="Ball" parent="Players" instance=ExtResource("2_jtsqw")]
-position = Vector2(473, 226)
+[node name="Host" type="Button" parent="."]
+offset_left = 19.0
+offset_top = 543.0
+offset_right = 63.0
+offset_bottom = 574.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 590.0
+offset_right = 53.0
+offset_bottom = 621.0
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/ball.tscn")
+spawn_path = NodePath("../Players")
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
