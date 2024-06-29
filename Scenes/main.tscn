@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=10 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_o1k6n"]
 [ext_resource type="PackedScene" uid="uid://bhcnsp7x8c6ul" path="res://Scenes/ball.tscn" id="2_jtsqw"]
 [ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
 [ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="4_3kftb"]
+[ext_resource type="PackedScene" uid="uid://d3qvtuhexhxnq" path="res://Scenes/score_board.tscn" id="6_r63pi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8p5qj"]
 
@@ -568,6 +569,9 @@ text = "Join"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/ball.tscn")
 spawn_path = NodePath("../Players")
+
+[node name="ScoreBoard" parent="." instance=ExtResource("6_r63pi")]
+visible = false
 
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]

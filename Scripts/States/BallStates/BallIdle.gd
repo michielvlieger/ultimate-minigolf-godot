@@ -27,7 +27,8 @@ func input(event):
 			aiming_line.set_point_position(1,aiming_line_vector)
 		if event.is_action_released("click"):
 			if(relative_shooting_vector.length() > 10):
-				shoot_ball.rpc_id(1,relative_shooting_vector)
+				#shoot_ball.rpc_id(1,relative_shooting_vector)
+				shoot_ball(relative_shooting_vector)
 			stop_aiming()
 
 func update(_delta):
@@ -47,7 +48,7 @@ func stop_aiming():
 func get_relative_shooting_vector():
 	return(mouse_clicked_position-get_local_mouse_position())
 
-@rpc("authority", "call_local", "reliable")
+#@rpc("authority", "call_local", "reliable")
 func shoot_ball(relative_shooting_vector):
 	print("shooting")
 	print(multiplayer.get_remote_sender_id())

@@ -5,3 +5,4 @@ class_name BallScored
 
 func enter():
 	print("goal!!!")
+	ball.scored.emit()

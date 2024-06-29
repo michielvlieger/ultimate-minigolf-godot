@@ -1,5 +1,9 @@
 extends RigidBody2D
 
+signal scored
+
+@onready var camera_2d = $Camera2D
+
 @export var replicated_position : Vector2
 @export var replicated_rotation : float
 @export var replicated_linear_velocity : Vector2
@@ -8,20 +12,10 @@ extends RigidBody2D
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 
-@rpc("any_peer", "call_local", "reliable")
 func _ready():
-	Camera2D.new()
+	if $"./MultiplayerSynchronizer".get_multiplayer_authority() == multiplayer.get_unique_id(): camera_2d.make_current()
 
 func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
-  	# Synchronizing the physics values directly causes problems since you can't
-  	# directly update physics values outside of _integrate_forces. This is
-  	# an attempt to resolve that problem while still being able to use
-  	# MultiplayerSynchronizer to replicate the values.
-
-  	# The object owner makes shadow copies of the physics values.
-  	# These shadow copies get synchronized by the MultiplyaerSynchronizer
-  	# The client copies the synchronized shadow values into the 
-  	# actual physics properties inside integrate_forces
 	if is_multiplayer_authority():
 		replicated_position = position
 		replicated_rotation = rotation
