@@ -11,7 +11,6 @@ var mouse_clicked_position = null
 var isAiming = false
 
 func enter():
-	print("entered idle")
 	mouse_clicked_position = null
 	isAiming = false
 
@@ -50,7 +49,5 @@ func get_relative_shooting_vector():
 
 #@rpc("authority", "call_local", "reliable")
 func shoot_ball(relative_shooting_vector):
-	print("shooting")
-	print(multiplayer.get_remote_sender_id())
-	print(ball)
+	ball.shot.emit()
 	ball.apply_central_impulse(relative_shooting_vector.limit_length(max_speed))

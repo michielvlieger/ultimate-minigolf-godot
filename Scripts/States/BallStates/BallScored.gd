@@ -4,5 +4,4 @@ class_name BallScored
 @onready var ball = $"../.."
 
 func enter():
-	print("goal!!!")
 	ball.scored.emit()

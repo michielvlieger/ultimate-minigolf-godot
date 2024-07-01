@@ -4,7 +4,6 @@
 
 [node name="ScoreBoard" type="CanvasLayer"]
 script = ExtResource("1_xeqse")
-games_amount = 18
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15

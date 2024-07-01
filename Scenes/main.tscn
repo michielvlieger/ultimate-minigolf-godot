@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=8 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
-[ext_resource type="Script" path="res://Scripts/main.gd" id="1_o1k6n"]
-[ext_resource type="PackedScene" uid="uid://bhcnsp7x8c6ul" path="res://Scenes/ball.tscn" id="2_jtsqw"]
 [ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
-[ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="4_3kftb"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="4_3kftb"]
 [ext_resource type="PackedScene" uid="uid://d3qvtuhexhxnq" path="res://Scenes/score_board.tscn" id="6_r63pi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8p5qj"]
@@ -532,10 +530,7 @@ terrain_set_0/terrain_0/name = "course terrain"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.996078, 1)
 sources/0 = SubResource("TileSetAtlasSource_v7vhj")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("player_spawn")]
-script = ExtResource("1_o1k6n")
-player_scene = ExtResource("2_jtsqw")
-player_spawn = NodePath("Players")
+[node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_i3i4l")
@@ -546,8 +541,9 @@ layer_0/tile_data = PackedInt32Array(262150, 196608, 5, 262151, 65536, 2, 262152
 [node name="Hole" parent="." instance=ExtResource("3_oyr87")]
 position = Vector2(517, 153)
 
-[node name="ScoreManager" type="Node2D" parent="."]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("player_spawn")]
 script = ExtResource("4_3kftb")
+player_spawn = NodePath("../Players")
 
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(478, 222)
@@ -573,5 +569,5 @@ spawn_path = NodePath("../Players")
 [node name="ScoreBoard" parent="." instance=ExtResource("6_r63pi")]
 visible = false
 
-[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Host" to="GameManager" method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="GameManager" method="_on_join_pressed"]
