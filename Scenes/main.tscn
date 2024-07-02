@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=9 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
 [ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
@@ -530,6 +530,14 @@ terrain_set_0/terrain_0/name = "course terrain"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.996078, 1)
 sources/0 = SubResource("TileSetAtlasSource_v7vhj")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jyovx"]
+properties/0/path = NodePath("GameManager:current_round")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("GameManager:number_of_rounds")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -568,6 +576,9 @@ spawn_path = NodePath("../Players")
 
 [node name="ScoreBoard" parent="." instance=ExtResource("6_r63pi")]
 visible = false
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_jyovx")
 
 [connection signal="pressed" from="Host" to="GameManager" method="_on_host_pressed"]
 [connection signal="pressed" from="Join" to="GameManager" method="_on_join_pressed"]

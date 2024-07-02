@@ -27,7 +27,7 @@ func input(event):
 		if event.is_action_released("click"):
 			if(relative_shooting_vector.length() > 10):
 				#shoot_ball.rpc_id(1,relative_shooting_vector)
-				shoot_ball(relative_shooting_vector)
+				shoot_ball.rpc(relative_shooting_vector)
 			stop_aiming()
 
 func update(_delta):
@@ -47,7 +47,7 @@ func stop_aiming():
 func get_relative_shooting_vector():
 	return(mouse_clicked_position-get_local_mouse_position())
 
-#@rpc("authority", "call_local", "reliable")
+@rpc("any_peer","call_local","reliable")
 func shoot_ball(relative_shooting_vector):
 	ball.shot.emit()
 	ball.apply_central_impulse(relative_shooting_vector.limit_length(max_speed))

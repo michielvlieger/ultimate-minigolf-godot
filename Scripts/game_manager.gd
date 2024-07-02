@@ -1,21 +1,25 @@
 extends Node2D
 
-var peer = ENetMultiplayerPeer.new()
-@export var player_spawn: Node2D
 @onready var score_board = $"../ScoreBoard"
+@onready var multiplayer_synchronizer = $"../MultiplayerSynchronizer"
 const BALL = preload("res://Scenes/ball.tscn")
-var game_data = GameData.new(18)
 
+var peer = ENetMultiplayerPeer.new()
+
+@export var player_spawn: Node2D
+@export var current_round: int = 1
+@export var number_of_rounds: int = 18
 
 func _add_player(id = 1):
-	for player in player_spawn.get_children():
-		score_board.add_player.rpc(player.name)
 	var player = BALL.instantiate()
-	player.set_data(id, str(id), game_data.number_of_rounds)
+	player.set_data(id, str(id), number_of_rounds)
 	player.name = str(id)
 	player.scored.connect(_on_player_scored.bind(player))
+	player.score_change.connect(_on_player_score_change.bind(player))
 	player.shot.connect(_on_player_shot.bind(player))
 	player_spawn.call_deferred("add_child", player)
+	for fplayer in player_spawn.get_children():
+		score_board.add_player.rpc(fplayer.name)
 	score_board.add_player.rpc(str(id))	
 
 func _on_host_pressed():
@@ -35,11 +39,13 @@ func _input(event):
 	if event.is_action_released("open_scoreboard"):
 		score_board.visible = false
 
-func _on_player_scored(player:Ball):
+func _on_player_scored(player):
 	player.visible = false
 
-func _on_player_shot(player:Ball):
-	var current_score = player.player_data.scores[game_data.current_round]
-	var new_score = current_score+1
-	player.player_data.scores[game_data.current_round] = new_score
-	score_board.change_score.rpc(player, new_score)
+func _on_player_score_change(player):
+	score_board.change_score.rpc(player)
+
+func _on_player_shot(player):
+	var new_scores = player.scores
+	new_scores[current_round-1] += 1
+	player.set_scores.rpc(new_scores)
