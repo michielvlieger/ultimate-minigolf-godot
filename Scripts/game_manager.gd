@@ -14,7 +14,7 @@ func _add_player(id = 1):
 	var player = BALL.instantiate()
 	player.set_data(id, str(id), number_of_rounds)
 	player.name = str(id)
-	player.scored.connect(_on_player_scored.bind(player))
+	player.scored.connect(_on_player_scored.bind())
 	player.score_change.connect(_on_player_score_change.bind(player))
 	player.shot.connect(_on_player_shot.bind(player))
 	player_spawn.call_deferred("add_child", player)
@@ -39,8 +39,16 @@ func _input(event):
 	if event.is_action_released("open_scoreboard"):
 		score_board.visible = false
 
-func _on_player_scored(player):
-	player.visible = false
+func _on_player_scored():
+	var all_players_finished = true
+	var players = player_spawn.get_children()
+	for player in players:
+		if !player.is_finished:
+			all_players_finished = false
+	
+	if all_players_finished:
+		for player in players:
+			player.reset.emit(Vector2(0,0))
 
 func _on_player_score_change(player):
 	score_board.change_score.rpc(player)

@@ -27,6 +27,9 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:replicated_angular_velocity")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:is_finished")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="Ball" type="RigidBody2D" groups=["balls"]]
 z_index = 10
@@ -74,3 +77,5 @@ script = ExtResource("6_86dxc")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_h03tr")
 visibility_update_mode = 1
+
+[connection signal="reset" from="." to="StateMachine/Scored" method="_on_ball_reset"]

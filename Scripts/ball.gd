@@ -3,9 +3,11 @@ extends RigidBody2D
 signal scored
 signal score_change
 signal shot
+signal reset(pos)
 
 @onready var camera_2d = $Camera2D
 @onready var state_machine = $StateMachine
+@onready var state_scored = $StateMachine/Scored
 
 @export var replicated_position : Vector2
 @export var replicated_rotation : float
@@ -14,6 +16,7 @@ signal shot
 
 @export var peer_id:int
 @export var player_name:String
+@export var is_finished:bool
 @export var scores: Array:
 	get = get_scores, set = set_scores
 		
