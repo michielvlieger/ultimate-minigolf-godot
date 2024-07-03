@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxpioug5uk81x"]
+
+[ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_ontkx"]
+[ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="1_vnrwj"]
+[ext_resource type="Script" path="res://Scripts/ItemComponents/kill_component.gd" id="2_0arfg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_16uiw"]
+radius = 67.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qwk1q"]
+radius = 13.0
+
+[node name="BlackHole" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0841122, 0.0841122)
+texture = ExtResource("1_ontkx")
+
+[node name="GravityComponent" type="Node2D" parent="."]
+script = ExtResource("1_vnrwj")
+strength = 10
+
+[node name="GravityZone" type="Area2D" parent="GravityComponent"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityComponent/GravityZone"]
+shape = SubResource("CircleShape2D_16uiw")
+
+[node name="KillComponent" type="Node2D" parent="."]
+script = ExtResource("2_0arfg")
+
+[node name="KillZone" type="Area2D" parent="KillComponent"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillComponent/KillZone"]
+shape = SubResource("CircleShape2D_qwk1q")
+
+[connection signal="body_entered" from="GravityComponent/GravityZone" to="GravityComponent" method="_on_gravity_zone_body_entered"]
+[connection signal="body_exited" from="GravityComponent/GravityZone" to="GravityComponent" method="_on_gravity_zone_body_exited"]
+[connection signal="body_entered" from="KillComponent/KillZone" to="KillComponent" method="_on_kill_zone_body_entered"]

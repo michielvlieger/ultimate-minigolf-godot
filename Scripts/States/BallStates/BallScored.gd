@@ -13,14 +13,3 @@ func emit_scored():
 	ball.visible = false
 	ball.is_finished = true
 	ball.scored.emit()
-
-@rpc("any_peer","call_local","reliable")
-func reset(pos):
-	collision_shape_2d.disabled = false
-	ball.visible = true
-	ball.is_finished = false
-	ball.position = pos
-	transitioned.emit(self,"idle")
-
-func _on_ball_reset(pos):
-	reset.rpc(pos)

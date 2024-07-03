@@ -5,4 +5,4 @@ class_name BallScoring
 
 func physics_update(_delta):
 	if(ball.linear_velocity.length() < 5):
-		transitioned.emit(self,"scored")
+		transitioned.emit("scored")

@@ -5,4 +5,4 @@ class_name BallMoving
 
 func physics_update(_delta):
 	if(ball.linear_velocity.length() < 2):
-		transitioned.emit(self,"idle")
+		transitioned.emit("idle")

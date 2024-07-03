@@ -13,6 +13,8 @@ var isAiming = false
 func enter():
 	mouse_clicked_position = null
 	isAiming = false
+	print("changing last pos")
+	ball.last_pos = ball.position
 
 func input(event):
 	if !isAiming && event.is_action_pressed("click"):
@@ -31,7 +33,7 @@ func input(event):
 
 func update(_delta):
 	if(ball.linear_velocity.length() > 2):
-		transitioned.emit(self, "moving")
+		transitioned.emit("moving")
 	
 func start_aiming():
 	mouse_clicked_position = get_local_mouse_position()

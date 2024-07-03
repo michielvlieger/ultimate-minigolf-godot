@@ -4,10 +4,12 @@ signal scored
 signal score_change
 signal shot
 signal reset(pos)
+signal kill
 
 @onready var camera_2d = $Camera2D
 @onready var state_machine = $StateMachine
 @onready var state_scored = $StateMachine/Scored
+@onready var collision_shape_2d = $CollisionShape2D
 
 @export var replicated_position : Vector2
 @export var replicated_rotation : float
@@ -17,6 +19,9 @@ signal reset(pos)
 @export var peer_id:int
 @export var player_name:String
 @export var is_finished:bool
+@export var last_pos: Vector2
+var _kill_player = false
+
 @export var scores: Array:
 	get = get_scores, set = set_scores
 		
@@ -41,9 +46,14 @@ func _enter_tree():
 
 func _ready():
 	multiplayer.allow_object_decoding = true
+	last_pos = position
 	if $"./MultiplayerSynchronizer".get_multiplayer_authority() == multiplayer.get_unique_id(): camera_2d.make_current()
 
 func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
+	if _kill_player:
+		_kill_player = false
+		kill_player.rpc()
+		
 	if is_multiplayer_authority():
 		replicated_position = position
 		replicated_rotation = rotation
@@ -54,3 +64,26 @@ func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
 		rotation = replicated_rotation
 		linear_velocity = replicated_linear_velocity
 		angular_velocity = replicated_angular_velocity
+	pass
+
+@rpc("any_peer","call_local","reliable")
+func reset_player(pos):
+	position = pos
+	collision_shape_2d.disabled = false
+	visible = true
+	is_finished = false
+	state_machine.on_child_transition("idle")
+
+func _on_reset(pos):
+	reset_player.rpc(pos)
+
+func _on_kill():
+	_kill_player = true
+
+@rpc("any_peer","call_local","reliable")
+func kill_player():
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
+	transform.origin = last_pos
+	state_machine.on_child_transition("idle")
+

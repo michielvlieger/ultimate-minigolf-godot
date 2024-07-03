@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=11 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
+[ext_resource type="PackedScene" uid="uid://bxpioug5uk81x" path="res://Scenes/Items/black_hole.tscn" id="2_rapd7"]
 [ext_resource type="PackedScene" uid="uid://c20jyagwb3s3f" path="res://Scenes/hole.tscn" id="3_oyr87"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="4_3kftb"]
 [ext_resource type="PackedScene" uid="uid://d3qvtuhexhxnq" path="res://Scenes/score_board.tscn" id="6_r63pi"]
@@ -521,6 +522,10 @@ texture_region_size = Vector2i(64, 64)
 6:6/0/terrains_peering_bit/left_side = 0
 6:6/0/terrains_peering_bit/top_side = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_y45dl"]
+resource_name = "items"
+scenes/1/scene = ExtResource("2_rapd7")
+
 [sub_resource type="TileSet" id="TileSet_i3i4l"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
@@ -529,6 +534,7 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "course terrain"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.996078, 1)
 sources/0 = SubResource("TileSetAtlasSource_v7vhj")
+sources/1 = SubResource("TileSetScenesCollectionSource_y45dl")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jyovx"]
 properties/0/path = NodePath("GameManager:current_round")
@@ -543,8 +549,10 @@ properties/1/replication_mode = 1
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_i3i4l")
 format = 2
-layer_0/name = "course"
-layer_0/tile_data = PackedInt32Array(262150, 196608, 5, 262151, 65536, 2, 262152, 65536, 4, 196616, 131072, 1, 196615, 65536, 1, 196614, 0, 1, 131078, 393216, 1, 65542, 0, 0, 65543, 65536, 0, 65544, 131072, 0, 131080, 393216, 2, 131081, 65536, 3, 131082, 327680, 5, 65546, 196608, 0, 196618, 196608, 2, 131083, 131072, 3, 131079, 65536, 1, 327688, 196608, 1, 393224, 65536, 5, 458760, 131072, 5, 458761, 65536, 3, 393226, 0, 0, 393227, 131072, 0, 458763, 131072, 2, 458762, 196608, 5, 458759, 65536, 2, 393223, 65536, 0, 393222, 65536, 0, 458758, 65536, 2, 458757, 196608, 5, 393221, 0, 0, 458756, 65536, 3, 458755, 262144, 6, 393219, 65536, 4, 393218, 0, 2, 327682, 0, 0, 327683, 131072, 4, 327684, 393216, 6, 262148, 262144, 5, 196612, 196608, 1, 131076, 262144, 4, 131077, 65536, 3, 262149, 65536, 3)
+layer_0/name = "items"
+layer_0/tile_data = PackedInt32Array(262151, 1, 65536)
+layer_1/name = "course"
+layer_1/tile_data = PackedInt32Array(262150, 196608, 5, 262151, 65536, 2, 262152, 65536, 4, 196616, 131072, 1, 196615, 65536, 1, 196614, 0, 1, 131078, 393216, 1, 65542, 0, 0, 65543, 65536, 0, 65544, 131072, 0, 131080, 393216, 2, 131081, 65536, 3, 131082, 327680, 5, 65546, 196608, 0, 196618, 196608, 2, 131083, 131072, 3, 131079, 65536, 1, 327688, 196608, 1, 393224, 65536, 5, 458760, 131072, 5, 458761, 65536, 3, 393226, 0, 0, 393227, 131072, 0, 458763, 131072, 2, 458762, 196608, 5, 458759, 65536, 2, 393223, 65536, 0, 393222, 65536, 0, 458758, 65536, 2, 458757, 196608, 5, 393221, 0, 0, 458756, 65536, 3, 458755, 262144, 6, 393219, 65536, 4, 393218, 0, 2, 327682, 0, 0, 327683, 131072, 4, 327684, 393216, 6, 262148, 262144, 5, 196612, 196608, 1, 131076, 262144, 4, 131077, 65536, 3, 262149, 65536, 3)
 
 [node name="Hole" parent="." instance=ExtResource("3_oyr87")]
 position = Vector2(517, 153)
@@ -554,7 +562,7 @@ script = ExtResource("4_3kftb")
 player_spawn = NodePath("../Players")
 
 [node name="Players" type="Node2D" parent="."]
-position = Vector2(478, 222)
+position = Vector2(480, 192)
 
 [node name="Host" type="Button" parent="."]
 offset_left = 19.0
