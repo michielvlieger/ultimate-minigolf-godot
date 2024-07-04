@@ -4,7 +4,12 @@ class_name GravityComponent
 var balls_in_area = {}
 const Ball = preload("res://Scripts/ball.gd")
 
+@export var affected_area: Area2D
 @export var strength: int
+
+func _ready():
+	affected_area.body_entered.connect(_on_gravity_zone_body_entered)
+	affected_area.body_exited.connect(_on_gravity_zone_body_exited)
 
 func _on_gravity_zone_body_entered(body):
 	if body is Ball:
@@ -17,5 +22,4 @@ func _on_gravity_zone_body_exited(body):
 func _physics_process(_delta):
 	for key in balls_in_area:
 		var ball = balls_in_area[key]
-		if ball.get_node("StateMachine").current_state_name != "idle":
-			ball.apply_central_force((self.global_position - ball.global_position) * strength)
+		ball.apply_central_force((self.global_position - ball.global_position) * strength)

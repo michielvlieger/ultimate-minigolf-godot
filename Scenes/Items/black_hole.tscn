@@ -1,8 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxpioug5uk81x"]
+[gd_scene load_steps=10 format=3 uid="uid://bxpioug5uk81x"]
 
-[ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_ontkx"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="1_vnrwj"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/kill_component.gd" id="2_0arfg"]
+
+[sub_resource type="Gradient" id="Gradient_tiiuk"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.24026, 0.655844, 0.876623, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0.627451, 0, 0, 0, 0.392157, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3md4i"]
+gradient = SubResource("Gradient_tiiuk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.495413, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_16uiw"]
 radius = 67.0
@@ -10,11 +20,32 @@ radius = 67.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qwk1q"]
 radius = 13.0
 
+[sub_resource type="Curve" id="Curve_nm6tk"]
+_data = [Vector2(0.126667, 0), 0.0, 0.0, 0, 0, Vector2(0.34, 0.56044), 0.0, 0.0, 0, 0, Vector2(0.433333, 0.56044), 0.0, 0.0, 0, 0, Vector2(0.733333, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_lfi5h"]
+curve = SubResource("Curve_nm6tk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0myym"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 65.0
+emission_ring_inner_radius = 60.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -300.0
+color = Color(0.231373, 0.231373, 0.231373, 0.796078)
+alpha_curve = SubResource("CurveTexture_lfi5h")
+turbulence_noise_strength = 0.58
+
 [node name="BlackHole" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.0841122, 0.0841122)
-texture = ExtResource("1_ontkx")
+scale = Vector2(2.1875, 2.09635)
+texture = SubResource("GradientTexture2D_3md4i")
 
 [node name="GravityComponent" type="Node2D" parent="."]
 script = ExtResource("1_vnrwj")
@@ -33,6 +64,9 @@ script = ExtResource("2_0arfg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillComponent/KillZone"]
 shape = SubResource("CircleShape2D_qwk1q")
 
-[connection signal="body_entered" from="GravityComponent/GravityZone" to="GravityComponent" method="_on_gravity_zone_body_entered"]
-[connection signal="body_exited" from="GravityComponent/GravityZone" to="GravityComponent" method="_on_gravity_zone_body_exited"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_0myym")
+trail_enabled = true
+
 [connection signal="body_entered" from="KillComponent/KillZone" to="KillComponent" method="_on_kill_zone_body_entered"]
