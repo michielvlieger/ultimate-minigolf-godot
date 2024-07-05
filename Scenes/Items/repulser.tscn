@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgvji1vbqkl8c"]
+[gd_scene load_steps=15 format=3 uid="uid://cgvji1vbqkl8c"]
 
 [ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="1_jcpme"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/timed_activator_component.gd" id="2_2jtjh"]
+[ext_resource type="Texture2D" uid="uid://b2b085lqb702x" path="res://Assets/ThumbNails/black_hole.png" id="3_23cv8"]
 
 [sub_resource type="Gradient" id="Gradient_15nqs"]
 offsets = PackedFloat32Array(0, 0.577922, 0.584416, 1)
@@ -98,3 +99,7 @@ autostart = true
 
 [node name="UptimeTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ThumbNail" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_23cv8")

@@ -16,5 +16,5 @@ func _on_body_exited(body):
 func _physics_process(_delta):
 	for key in ballsInArea:
 		var ball = ballsInArea[key]
-		if ball.get_node("StateMachine").current_state_name == "scoring":
+		if ball.get_node("StateMachine").current_state.name == "scoring":
 			ball.apply_central_force((self.global_position - ball.global_position) * 20)

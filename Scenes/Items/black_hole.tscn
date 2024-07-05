@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxpioug5uk81x"]
+[gd_scene load_steps=11 format=3 uid="uid://bxpioug5uk81x"]
 
 [ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="1_vnrwj"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/kill_component.gd" id="2_0arfg"]
+[ext_resource type="Texture2D" uid="uid://b2b085lqb702x" path="res://Assets/ThumbNails/black_hole.png" id="3_vf3hi"]
 
 [sub_resource type="Gradient" id="Gradient_tiiuk"]
 interpolation_mode = 2
@@ -47,8 +48,9 @@ turbulence_noise_strength = 0.58
 scale = Vector2(2.1875, 2.09635)
 texture = SubResource("GradientTexture2D_3md4i")
 
-[node name="GravityComponent" type="Node2D" parent="."]
+[node name="GravityComponent" type="Node2D" parent="." node_paths=PackedStringArray("affected_area")]
 script = ExtResource("1_vnrwj")
+affected_area = NodePath("GravityZone")
 strength = 10
 
 [node name="GravityZone" type="Area2D" parent="GravityComponent"]
@@ -68,5 +70,9 @@ shape = SubResource("CircleShape2D_qwk1q")
 amount = 200
 process_material = SubResource("ParticleProcessMaterial_0myym")
 trail_enabled = true
+
+[node name="ThumbNail" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_vf3hi")
 
 [connection signal="body_entered" from="KillComponent/KillZone" to="KillComponent" method="_on_kill_zone_body_entered"]

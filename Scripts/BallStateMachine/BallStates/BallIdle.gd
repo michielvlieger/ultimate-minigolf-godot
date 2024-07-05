@@ -4,8 +4,7 @@ class_name BallIdle
 @onready var ball = $"../.."
 @onready var aiming_line = $"../../AimingLine"
 
-@export
-var max_speed:float = 1500
+@export var max_speed:float = 1500
 
 var mouse_clicked_position = null
 var isAiming = false
@@ -13,7 +12,6 @@ var isAiming = false
 func enter():
 	mouse_clicked_position = null
 	isAiming = false
-	print("changing last pos")
 	ball.last_pos = ball.position
 
 func input(event):
