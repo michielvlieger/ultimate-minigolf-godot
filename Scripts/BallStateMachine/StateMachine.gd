@@ -1,4 +1,5 @@
 extends Node
+class_name StateMachine
 
 @export var initial_state: State
 var current_state: State
@@ -28,6 +29,7 @@ func _input(event):
 	if current_state:
 		current_state.input(event)
 
+@rpc("any_peer","call_local","reliable")
 func on_child_transition(new_state_name):
 	var new_state = states.get(new_state_name.to_lower())
 	if !new_state:

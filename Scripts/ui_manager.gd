@@ -2,7 +2,7 @@ extends Node2D
 class_name UIManager
 
 @onready var score_board = $"../ScoreBoard"
-@onready var item_selection_ui = $"../ItemManager/ItemSelectionUI"
+@export var item_selection_ui:CanvasLayer
 
 func _input(event):
 	if event.is_action_pressed("open_scoreboard"):

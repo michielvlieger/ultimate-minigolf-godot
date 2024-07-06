@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dtw1daimtoj2j"]
+[gd_scene load_steps=20 format=3 uid="uid://dtw1daimtoj2j"]
 
 [ext_resource type="Texture2D" uid="uid://b2n5vgp23u18d" path="res://Assets/Upscaled UM tileset course.png" id="1_85yq1"]
 [ext_resource type="PackedScene" uid="uid://bxpioug5uk81x" path="res://Scenes/Items/black_hole.tscn" id="2_rapd7"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://Scripts/GameManagerStateMachine/playing_state.gd" id="7_ro8n4"]
 [ext_resource type="Script" path="res://Scripts/GameManagerStateMachine/waiting_for_players_state.gd" id="9_dmf77"]
 [ext_resource type="Script" path="res://Scripts/item_manager.gd" id="12_ff22v"]
-[ext_resource type="Texture2D" uid="uid://dd0ulnttehaek" path="res://Assets/icon.svg" id="13_r3rb1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8p5qj"]
 
@@ -574,7 +573,7 @@ layer_2/tile_data = PackedInt32Array(196616, 131072, 1, 196615, 65536, 1, 196614
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_3kftb")
-initial_state = NodePath("PlayingState")
+initial_state = NodePath("WaitingForPlayersState")
 
 [node name="ItemPlacingState" type="Node2D" parent="GameManager"]
 script = ExtResource("6_34sba")
@@ -617,8 +616,9 @@ spawn_path = NodePath("../PlayerManager")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jyovx")
 
-[node name="ItemManager" type="Node2D" parent="."]
+[node name="ItemManager" type="Node2D" parent="." node_paths=PackedStringArray("item_list_select")]
 script = ExtResource("12_ff22v")
+item_list_select = NodePath("ItemSelectionUI/Panel/MarginContainer/VBoxContainer/MarginContainer/ItemList")
 
 [node name="ItemSelectionUI" type="CanvasLayer" parent="ItemManager"]
 
@@ -661,17 +661,15 @@ layout_mode = 2
 [node name="ItemList" type="ItemList" parent="ItemManager/ItemSelectionUI/Panel/MarginContainer/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-item_count = 1
 max_columns = 3
 same_column_width = true
 fixed_column_width = 50
 icon_mode = 0
 fixed_icon_size = Vector2i(50, 50)
-item_0/text = "test"
-item_0/icon = ExtResource("13_r3rb1")
 
-[node name="UIManager" type="Node2D" parent="."]
+[node name="UIManager" type="Node2D" parent="." node_paths=PackedStringArray("item_selection_ui")]
 script = ExtResource("7_jy40j")
+item_selection_ui = NodePath("../ItemManager/ItemSelectionUI")
 
 [connection signal="body_entered" from="TileMap/Hole" to="TileMap/Hole" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMap/Hole" to="TileMap/Hole" method="_on_body_exited"]
