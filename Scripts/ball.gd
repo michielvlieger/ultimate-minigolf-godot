@@ -20,7 +20,9 @@ signal kill
 @export var player_name:String
 @export var is_finished:bool
 @export var last_pos: Vector2
+@export var spawn_position: Vector2
 var _kill_player = false
+var _reset_player = false
 
 @export var scores: Array:
 	get = get_scores, set = set_scores
@@ -33,13 +35,14 @@ func set_scores(new_scores):
 	score_change.emit()
 	scores = new_scores
 
-func set_data(fplayer_id:int, fplayer_name:String, fnumber_of_rounds:int):
+func set_data(fplayer_id:int, fplayer_name:String, fnumber_of_rounds:int, fspawn_position:Vector2):
 	peer_id = fplayer_id
 	player_name = fplayer_name
 	var init_scores = []
 	init_scores.resize(fnumber_of_rounds)
 	init_scores.fill(0)
 	scores = init_scores
+	spawn_position = fspawn_position
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -47,13 +50,16 @@ func _enter_tree():
 func _ready():
 	multiplayer.allow_object_decoding = true
 	last_pos = position
-	if $"./MultiplayerSynchronizer".get_multiplayer_authority() == multiplayer.get_unique_id(): camera_2d.make_current()
+	if $"./MultiplayerSynchronizer".get_multiplayer_authority() == multiplayer.get_unique_id():set_camera_to_player() 
 
 func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
 	if _kill_player:
 		_kill_player = false
 		kill_player.rpc()
-		
+	if _reset_player:
+		_reset_player = false
+		reset_player.rpc()
+	
 	if is_multiplayer_authority():
 		replicated_position = position
 		replicated_rotation = rotation
@@ -67,15 +73,22 @@ func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
 	pass
 
 @rpc("any_peer","call_local","reliable")
-func reset_player(pos):
-	position = pos
+func reset_player():
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
+	position = Vector2.ZERO
+
+func _on_reset(pos):
+	_reset_player = true
+	reset_variables.rpc()
+
+@rpc("any_peer","call_local","reliable")
+func reset_variables():
+	state_machine.on_child_transition("idle")
+	set_camera_to_player()
 	collision_shape_2d.disabled = false
 	visible = true
 	is_finished = false
-	state_machine.on_child_transition("idle")
-
-func _on_reset(pos):
-	reset_player.rpc(pos)
 
 func _on_kill():
 	_kill_player = true
@@ -86,4 +99,6 @@ func kill_player():
 	angular_velocity = 0
 	transform.origin = last_pos
 	state_machine.on_child_transition("idle")
-
+	
+func set_camera_to_player():
+	camera_2d.make_current()

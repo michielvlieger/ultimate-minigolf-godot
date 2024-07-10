@@ -10,7 +10,7 @@ var peer = ENetMultiplayerPeer.new()
 
 func _add_player(id = 1):
 	var player = BALL.instantiate()
-	player.set_data(id, str(id), game_manager.number_of_rounds)
+	player.set_data(id, str(id), game_manager.number_of_rounds, position)
 	player.name = str(id)
 	player.scored.connect(_on_player_scored.bind())
 	player.score_change.connect(_on_player_score_change.bind(player))

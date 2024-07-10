@@ -47,9 +47,8 @@ func _on_item_selected(index:int):
 	#if all players have selected go to item placing state
 	var all_players_have_selected = true
 	for player in player_manager.get_children():
-		if !selected_items.has(player.name):
+		if !selected_items[game_manager.current_round].has(int(str(player.name))):
 			all_players_have_selected = false
-	
 	if all_players_have_selected:
 		game_manager.on_child_transition.rpc("itemplacingstate")
 	
@@ -69,3 +68,7 @@ func add_item_to_selection_ui(item):
 	#item_select.set_data.rpc(thumb_nail_image,item.name)
 	var thumb_nail_texture = item.get_node("ThumbNail").texture	
 	item_list_select.add_item(item.name,thumb_nail_texture)
+
+@rpc("any_peer","call_local","reliable")
+func reset_item_list_selection():
+	item_list_select.deselect_all()

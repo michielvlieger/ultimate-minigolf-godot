@@ -1,24 +1,31 @@
 extends State
 class_name ItemPlacingState
 
-@onready var player_manager = $"../../PlayerManager"
-@onready var tile_map = $"../../TileMap"
-@onready var item_manager = $"../../ItemManager"
-@onready var game_manager = $".."
+@export var player_manager:PlayerManager
+@export var tile_map:TileMap
+@export var item_manager:ItemManager
+@export var game_manager:GameManager
 
 var placeholder_map_pos:Vector2i
-var has_selected_pos:bool = false
+var has_placed:bool = false
+var users_placed = []
 
 func enter():
-	has_selected_pos = false
+	has_placed = false
+	add_user_to_users_placed.rpc_id(1)
+
+func exit():
+	multiplayer.get_unique_id()
+	for player in player_manager.get_children():
+		if player.name == str(multiplayer.get_unique_id()):
+			player.reset.emit(player_manager.position)
 
 func input(event):
-	print(has_selected_pos)
-	if has_selected_pos:
+	if has_placed:
 		return
 	var map_pos = tile_map.local_to_map(get_local_mouse_position())
 	#if mouse is not over tilemap with course	
-	if tile_map.get_cell_atlas_coords(2, map_pos) == Vector2i(-1,-1):
+	if tile_map.get_cell_atlas_coords(3, map_pos) == Vector2i(-1,-1):
 		return
 	#if already a tile in cell
 	if tile_map.get_cell_alternative_tile(0, map_pos) > 0:
@@ -28,20 +35,32 @@ func input(event):
 			return
 		
 		if placeholder_map_pos:
-			remove_placeholder_item.rpc(placeholder_map_pos)
+			remove_item.rpc(placeholder_map_pos,1)
 		
 		placeholder_map_pos = map_pos
-		display_placeholder_item.rpc(map_pos)
+		place_item.rpc(map_pos,1)
 	if event.is_action_pressed("click"):
-		has_selected_pos = true
-		print("clicked")
+		remove_item.rpc(map_pos,1)
+		place_item.rpc(map_pos,0)
+		has_placed = true
+		check_start_round.rpc_id(1)
 
 @rpc("any_peer","call_local","reliable")
-func display_placeholder_item(map_pos:Vector2i):
+func place_item(map_pos:Vector2i, layer_id: int):
 	var item_to_display = item_manager.selected_items[game_manager.current_round][multiplayer.get_remote_sender_id()]
 	var scene_tile_id = item_manager.possible_items.find_key(item_to_display)
-	tile_map.set_cell(0,map_pos,1,Vector2i.ZERO, scene_tile_id)
+	tile_map.set_cell(layer_id,map_pos,1,Vector2i.ZERO, scene_tile_id)
 	
 @rpc("any_peer","call_local","reliable")
-func remove_placeholder_item(map_pos:Vector2i):
-	tile_map.erase_cell(0,map_pos)
+func remove_item(map_pos:Vector2i, layer_id: int):
+	tile_map.erase_cell(layer_id,map_pos)
+
+@rpc("any_peer","call_local","reliable")
+func check_start_round():
+	users_placed.erase(multiplayer.get_remote_sender_id())
+	if users_placed.is_empty():
+		transitioned.emit("playingstate")
+
+@rpc("any_peer","call_local","reliable")
+func add_user_to_users_placed():
+	users_placed.append(multiplayer.get_remote_sender_id())

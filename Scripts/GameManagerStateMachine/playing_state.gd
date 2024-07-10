@@ -3,6 +3,10 @@ class_name PlayingState
 
 @onready var game_manager = $".."
 @onready var player_manager = $"../../PlayerManager"
+@onready var level_camera = $"../../LevelCamera"
+
+func exit():
+	level_camera.make_current()
 
 func player_scored():
 	var all_players_finished = true
