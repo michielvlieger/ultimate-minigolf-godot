@@ -17,4 +17,3 @@ func _ready():
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
-			

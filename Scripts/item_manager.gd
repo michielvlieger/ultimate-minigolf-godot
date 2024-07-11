@@ -33,16 +33,7 @@ func _ready():
 	item_list_select.item_selected.connect(_on_item_selected)
 
 func _on_item_selected(index:int):
-	var selected_item_text = item_list_select.get_item_text(index)
-	var selected_item = null
-	for item in possible_items.values():
-		if item.name == selected_item_text:
-			selected_item = item
-	
-	if !selected_item:
-		return
-	
-	add_item_to_selected_items.rpc(selected_item)
+	add_item_to_selected_items.rpc(index)
 	
 	#if all players have selected go to item placing state
 	var all_players_have_selected = true
@@ -55,7 +46,16 @@ func _on_item_selected(index:int):
 	#make item disabled in other players item list select (maybe display who chose what)
 
 @rpc("any_peer","call_local","reliable")
-func add_item_to_selected_items(selected_item):
+func add_item_to_selected_items(index):
+	var selected_item_text = item_list_select.get_item_text(index)
+	var selected_item = null
+	for item in possible_items.values():
+		if item.name == selected_item_text:
+			selected_item = item
+	
+	if !selected_item:
+		return
+	
 	if !selected_items.has(game_manager.current_round):
 		selected_items[game_manager.current_round] = {}
 	selected_items[game_manager.current_round][multiplayer.get_remote_sender_id()] = selected_item

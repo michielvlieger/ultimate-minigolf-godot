@@ -1,23 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://c20jyagwb3s3f"]
+[gd_scene load_steps=7 format=3 uid="uid://c20jyagwb3s3f"]
 
-[ext_resource type="Script" path="res://Scripts/hole.gd" id="1_hh0o1"]
+[ext_resource type="Script" path="res://Scripts/item.gd" id="1_30a5f"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="2_q3nbb"]
+[ext_resource type="Script" path="res://Scenes/scoring_component.gd" id="4_73bpi"]
+[ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="4_t6qnn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvlhs"]
-radius = 8.0
 
-[node name="Hole" type="Area2D"]
-linear_damp_space_override = 1
-linear_damp = 3.0
-script = ExtResource("1_hh0o1")
+[sub_resource type="CircleShape2D" id="CircleShape2D_t0rd7"]
+radius = 5.0
+
+[node name="Hole" type="Node2D"]
+script = ExtResource("1_30a5f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 scale = Vector2(0.0514019, 0.0511628)
 texture = ExtResource("2_q3nbb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="GravityComponent" type="Node2D" parent="." node_paths=PackedStringArray("affected_area")]
+script = ExtResource("4_t6qnn")
+affected_area = NodePath("GravityZone")
+strength = 20
+
+[node name="GravityZone" type="Area2D" parent="GravityComponent"]
+linear_damp_space_override = 1
+linear_damp = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityComponent/GravityZone"]
 shape = SubResource("CircleShape2D_pvlhs")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[node name="ScoringComponent" type="Node2D" parent="." node_paths=PackedStringArray("affected_area")]
+script = ExtResource("4_73bpi")
+affected_area = NodePath("ScoringZone")
+
+[node name="ScoringZone" type="Area2D" parent="ScoringComponent"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoringComponent/ScoringZone"]
+shape = SubResource("CircleShape2D_t0rd7")
+
+[connection signal="body_entered" from="GravityComponent/GravityZone" to="GravityComponent/GravityZone" method="_on_body_entered"]
+[connection signal="body_exited" from="GravityComponent/GravityZone" to="GravityComponent/GravityZone" method="_on_body_exited"]

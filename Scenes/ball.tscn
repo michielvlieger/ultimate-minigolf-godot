@@ -34,7 +34,7 @@ properties/5/path = NodePath(".:replicated_angular_velocity")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
-[node name="Ball" type="RigidBody2D" groups=["balls"]]
+[node name="Ball" type="RigidBody2D" node_paths=PackedStringArray("camera_2d") groups=["balls"]]
 z_index = 1
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_odjwi")
@@ -42,6 +42,7 @@ gravity_scale = 0.0
 can_sleep = false
 linear_damp = 1.2
 script = ExtResource("1_0r2ib")
+camera_2d = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0280374, 0.0280374)

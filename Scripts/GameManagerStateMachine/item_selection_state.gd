@@ -1,8 +1,8 @@
 extends State
 class_name ItemSelectionState
 
-@onready var ui_manager = $"../../UIManager"
-@onready var item_manager = $"../../ItemManager"
+@export var ui_manager: UIManager
+@export var item_manager: ItemManager
 
 func enter():
 	ui_manager.change_visibility_item_selection_ui(true)

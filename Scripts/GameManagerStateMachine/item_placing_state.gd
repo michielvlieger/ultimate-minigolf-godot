@@ -20,6 +20,9 @@ func exit():
 		if player.name == str(multiplayer.get_unique_id()):
 			player.reset.emit(player_manager.position)
 
+func resetting_players():
+	pass
+
 func input(event):
 	if has_placed:
 		return

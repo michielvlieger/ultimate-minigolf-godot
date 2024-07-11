@@ -586,11 +586,17 @@ tile_map = NodePath("../../TileMap")
 item_manager = NodePath("../../ItemManager")
 game_manager = NodePath("..")
 
-[node name="ItemSelectionState" type="Node2D" parent="GameManager"]
+[node name="ItemSelectionState" type="Node2D" parent="GameManager" node_paths=PackedStringArray("ui_manager", "item_manager")]
 script = ExtResource("6_kyr1s")
+ui_manager = NodePath("../../UIManager")
+item_manager = NodePath("../../ItemManager")
 
-[node name="PlayingState" type="Node2D" parent="GameManager"]
+[node name="PlayingState" type="Node2D" parent="GameManager" node_paths=PackedStringArray("game_manager", "player_manager", "level_camera", "tile_map")]
 script = ExtResource("7_ro8n4")
+game_manager = NodePath("..")
+player_manager = NodePath("../../PlayerManager")
+level_camera = NodePath("../../LevelCamera")
+tile_map = NodePath("../../TileMap")
 
 [node name="WaitingForPlayersState" type="Node2D" parent="GameManager"]
 script = ExtResource("9_dmf77")

@@ -1,0 +1,104 @@
+{
+	"categories": [
+		{
+			"uuid": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"title": "Task",
+			"color": "70bafa"
+		},
+		{
+			"uuid": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"title": "Bug",
+			"color": "ea1010"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "90e801c5-aae9-49a3-948f-704fe38c7dd7",
+			"title": "Todo",
+			"tasks": [
+				"473d191c-eec8-40d5-a993-e24e04890c41",
+				"1e1ef7e9-c477-4a7a-871d-051661a78253",
+				"d78a9220-25a4-400c-8cb2-25e442b3c224",
+				"87e263bb-be8a-4a17-935c-7e8ff7808271",
+				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400"
+			]
+		},
+		{
+			"uuid": "df1227e8-39da-4146-8aed-1089d584de52",
+			"title": "Doing",
+			"tasks": []
+		},
+		{
+			"uuid": "486ebc10-f00d-4ffe-8442-91bece2f4bfc",
+			"title": "Done",
+			"tasks": [
+				"68487ef8-d421-4be5-ac61-107db68d985c",
+				"f86ae1af-250f-4a87-b4d6-409df501bf24"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "473d191c-eec8-40d5-a993-e24e04890c41",
+			"title": "BUG: joined player camera",
+			"description": "Reset not called when starting round\n",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "f86ae1af-250f-4a87-b4d6-409df501bf24",
+			"title": "Bug: joined player timers not synced",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "68487ef8-d421-4be5-ac61-107db68d985c",
+			"title": "Bug: joined player score not updating",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "1e1ef7e9-c477-4a7a-871d-051661a78253",
+			"title": "Add lobby scene",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "d78a9220-25a4-400c-8cb2-25e442b3c224",
+			"title": "Link up main menu with lobby scene",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "87e263bb-be8a-4a17-935c-7e8ff7808271",
+			"title": "Link up lobby screen with main scene",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
+			"title": "Add game end",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"90e801c5-aae9-49a3-948f-704fe38c7dd7"
+			],
+			[
+				"df1227e8-39da-4146-8aed-1089d584de52"
+			],
+			[
+				"486ebc10-f00d-4ffe-8442-91bece2f4bfc"
+			]
+		]
+	}
+}

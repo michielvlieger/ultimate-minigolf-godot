@@ -12,5 +12,5 @@ func _input(event):
 		score_board.visible = false
 
 @rpc("any_peer","call_local","reliable")
-func change_visibility_item_selection_ui(is_visible:bool):
-	item_selection_ui.visible=is_visible
+func change_visibility_item_selection_ui(fis_visible:bool):
+	item_selection_ui.visible=fis_visible
