@@ -69,18 +69,17 @@ func _integrate_forces(_state : PhysicsDirectBodyState2D) -> void:
 		rotation = replicated_rotation
 		linear_velocity = replicated_linear_velocity
 		angular_velocity = replicated_angular_velocity
-	pass
 
 @rpc("any_peer","call_local","reliable")
 func reset_player():
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	position = Vector2.ZERO
+	last_pos = Vector2.ZERO
 
 func _on_reset(_pos):
 	_reset_player = true
 	reset_variables.rpc()
-	set_camera_to_player()
 
 @rpc("any_peer","call_local","reliable")
 func reset_variables():
@@ -94,12 +93,11 @@ func _on_kill():
 
 @rpc("any_peer","call_local","reliable")
 func kill_player():
+	transform.origin = last_pos
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
-	transform.origin = last_pos
 	state_machine.on_child_transition("idle")
 
-func set_camera_to_player():
-	print(get_multiplayer_authority())
-	print(multiplayer.get_unique_id())
-	camera_2d.make_current()
+@rpc("any_peer","call_local","reliable")
+func set_camera_to_player(ball):
+	ball.camera_2d.make_current()

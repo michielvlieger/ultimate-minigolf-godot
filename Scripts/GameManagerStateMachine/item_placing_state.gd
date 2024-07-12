@@ -12,16 +12,17 @@ var users_placed = []
 
 func enter():
 	has_placed = false
-	add_user_to_users_placed.rpc_id(1)
+	add_user_to_users_placed.rpc()
 
 func exit():
-	multiplayer.get_unique_id()
+	resetting_player.rpc()
+
+@rpc("any_peer","call_local","reliable")
+func resetting_player():
 	for player in player_manager.get_children():
 		if player.name == str(multiplayer.get_unique_id()):
 			player.reset.emit(player_manager.position)
-
-func resetting_players():
-	pass
+			player.set_camera_to_player(player)
 
 func input(event):
 	if has_placed:
@@ -46,7 +47,7 @@ func input(event):
 		remove_item.rpc(map_pos,1)
 		place_item.rpc(map_pos,0)
 		has_placed = true
-		check_start_round.rpc_id(1)
+		check_start_round.rpc()
 
 @rpc("any_peer","call_local","reliable")
 func place_item(map_pos:Vector2i, layer_id: int):
