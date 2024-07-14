@@ -1,7 +1,7 @@
 extends Node2D
 class_name ItemManager
 
-const ITEM_SELECT = preload("res://Scenes/item_select.tscn")
+const ITEM_SELECT = preload("res://Scenes/UI/item_select.tscn")
 
 @onready var tile_map = $"../TileMap"
 @onready var game_manager = $"../GameManager"
@@ -66,7 +66,7 @@ func spawn_selected_items():
 func add_item_to_selection_ui(item):
 	#var item_select = ITEM_SELECT.instantiate()
 	#item_select.set_data.rpc(thumb_nail_image,item.name)
-	var thumb_nail_texture = item.get_node("ThumbNail").texture	
+	var thumb_nail_texture = item.get_node("ThumbNail").texture
 	item_list_select.add_item(item.name,thumb_nail_texture)
 
 @rpc("any_peer","call_local","reliable")

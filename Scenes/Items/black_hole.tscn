@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bxpioug5uk81x"]
 
-[ext_resource type="Script" path="res://Scripts/item.gd" id="1_n6dxd"]
+[ext_resource type="Script" path="res://Scripts/Game/item.gd" id="1_n6dxd"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="1_vnrwj"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/kill_component.gd" id="2_0arfg"]
 [ext_resource type="Texture2D" uid="uid://b2b085lqb702x" path="res://Assets/ThumbNails/black_hole.png" id="3_vf3hi"]

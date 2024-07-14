@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bhcnsp7x8c6ul"]
 
-[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_0r2ib"]
+[ext_resource type="Script" path="res://Scripts/Game/ball.gd" id="1_0r2ib"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_4bamn"]
 [ext_resource type="Script" path="res://Scripts/BallStateMachine/StateMachine.gd" id="3_2gfbj"]
 [ext_resource type="Script" path="res://Scripts/BallStateMachine/BallStates/BallIdle.gd" id="4_dw8k7"]

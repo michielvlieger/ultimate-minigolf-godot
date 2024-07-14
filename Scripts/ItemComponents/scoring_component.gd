@@ -1,7 +1,7 @@
 extends Node2D
 class_name ScoringComponent
 
-const Ball = preload("res://Scripts/ball.gd")
+const Ball = preload("res://Scripts/Game/ball.gd")
 
 @export var affected_area: Area2D
 

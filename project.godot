@@ -11,13 +11,30 @@ config_version=5
 [application]
 
 config/name="Ultimate minigolf"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://Assets/icon.svg"
+
+[autoload]
+
+SceneManager="*res://Scripts/scene_manager.gd"
+LobbyManager="*res://Scripts/lobby_manager.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/initial_position_type=3
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+
+[gui]
+
+theme/custom="res://game_theme.tres"
 
 [input]
 

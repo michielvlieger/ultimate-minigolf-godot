@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c20jyagwb3s3f"]
 
-[ext_resource type="Script" path="res://Scripts/item.gd" id="1_30a5f"]
+[ext_resource type="Script" path="res://Scripts/Game/item.gd" id="1_30a5f"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="2_q3nbb"]
-[ext_resource type="Script" path="res://Scenes/scoring_component.gd" id="4_73bpi"]
+[ext_resource type="Script" path="res://Scripts/ItemComponents/scoring_component.gd" id="4_73bpi"]
 [ext_resource type="Script" path="res://Scripts/ItemComponents/gravity_component.gd" id="4_t6qnn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvlhs"]

@@ -16,17 +16,22 @@
 			"uuid": "90e801c5-aae9-49a3-948f-704fe38c7dd7",
 			"title": "Todo",
 			"tasks": [
-				"1e1ef7e9-c477-4a7a-871d-051661a78253",
-				"d78a9220-25a4-400c-8cb2-25e442b3c224",
-				"87e263bb-be8a-4a17-935c-7e8ff7808271",
 				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
-				"5a302273-784e-4c90-b66c-4b1f3df32c27"
+				"5a302273-784e-4c90-b66c-4b1f3df32c27",
+				"0bcf2f95-9797-447d-999a-adcb29632f28",
+				"03ba63a9-75b9-4e9c-a589-4403c9a50b28",
+				"d8629454-9815-4265-9e09-3d73c6f0c235",
+				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
+				"181e3544-4532-44bd-8b32-5f0ded50a335",
+				"87e263bb-be8a-4a17-935c-7e8ff7808271"
 			]
 		},
 		{
 			"uuid": "df1227e8-39da-4146-8aed-1089d584de52",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"1e1ef7e9-c477-4a7a-871d-051661a78253"
+			]
 		},
 		{
 			"uuid": "486ebc10-f00d-4ffe-8442-91bece2f4bfc",
@@ -35,7 +40,8 @@
 				"68487ef8-d421-4be5-ac61-107db68d985c",
 				"f86ae1af-250f-4a87-b4d6-409df501bf24",
 				"473d191c-eec8-40d5-a993-e24e04890c41",
-				"69d6efe4-8f6f-44eb-9812-0e3ad14e7210"
+				"69d6efe4-8f6f-44eb-9812-0e3ad14e7210",
+				"d78a9220-25a4-400c-8cb2-25e442b3c224"
 			]
 		}
 	],
@@ -99,6 +105,50 @@
 		{
 			"uuid": "5a302273-784e-4c90-b66c-4b1f3df32c27",
 			"title": "On reset set last_pos to spawn",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "0bcf2f95-9797-447d-999a-adcb29632f28",
+			"title": "No collision at spawn",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": [
+				{
+					"details": "on spawn turn off hitbox",
+					"done": false
+				},
+				{
+					"details": "after first hit turn on hitbox",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "03ba63a9-75b9-4e9c-a589-4403c9a50b28",
+			"title": "Style UI",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "d8629454-9815-4265-9e09-3d73c6f0c235",
+			"title": "Items have same icon in ItemList",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
+			"title": "give feedback on lineedit if not filled in",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "181e3544-4532-44bd-8b32-5f0ded50a335",
+			"title": "usercontrolled ball color selection",
 			"description": "",
 			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
 			"steps": []

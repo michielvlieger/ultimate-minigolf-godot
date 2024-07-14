@@ -1,7 +1,7 @@
 extends Node2D
 class_name KillComponent
 
-const Ball = preload("res://Scripts/ball.gd")
+const Ball = preload("res://Scripts/Game/ball.gd")
 var safe_time_components = []
 @onready var item = $".."
 

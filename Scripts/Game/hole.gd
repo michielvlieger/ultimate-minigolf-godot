@@ -1,7 +1,7 @@
 extends Area2D
 
 var ballsInArea = {}
-const Ball = preload("res://Scripts/ball.gd")
+const Ball = preload("res://Scripts/Game/ball.gd")
 
 func _on_body_entered(body):
 	if body is Ball:
