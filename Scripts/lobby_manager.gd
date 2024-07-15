@@ -4,6 +4,7 @@ extends Node
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal player_info_changed(peer_id)
 
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
@@ -19,7 +20,8 @@ var players = {}
 # entered in a UI scene.
 var player_info = {
 	"username": "Name",
-	"ball_color":"#ffffff"
+	"ball_color": Color.WHITE,
+	"is_ready": false
 	}
 
 var players_loaded = 0
@@ -70,7 +72,7 @@ func player_loaded():
 	if multiplayer.is_server():
 		players_loaded += 1
 		if players_loaded == players.size():
-			$/root/Game.start_game()
+			$/root/Main.start_game()
 			players_loaded = 0
 
 
@@ -85,6 +87,12 @@ func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
+
+@rpc("any_peer", "call_local", "reliable")
+func _update_player_info(new_player_info):
+	var player_id = multiplayer.get_remote_sender_id()
+	players[player_id] = new_player_info
+	player_info_changed.emit(player_id)
 
 
 func _on_player_disconnected(id):
@@ -106,3 +114,4 @@ func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
 	players.clear()
 	server_disconnected.emit()
+

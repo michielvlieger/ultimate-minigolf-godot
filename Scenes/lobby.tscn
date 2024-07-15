@@ -72,10 +72,12 @@ layout_mode = 2
 text = "Host Controls"
 
 [node name="UsernameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+visible = false
 layout_mode = 2
 text = "Username"
 
 [node name="ColorRect" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -85,11 +87,13 @@ custom_minimum_size = Vector2(23, 0)
 layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 disabled = true
 
 [node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 texture_normal = ExtResource("3_kna43")
