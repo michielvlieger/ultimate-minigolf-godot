@@ -50,7 +50,11 @@ func create_game():
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
-
+	
+	var upnp = UPNP.new()
+	upnp.discover()
+	upnp.add_port_mapping(PORT)
+	
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 
