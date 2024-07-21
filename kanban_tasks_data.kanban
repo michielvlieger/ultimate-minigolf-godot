@@ -23,7 +23,8 @@
 				"d8629454-9815-4265-9e09-3d73c6f0c235",
 				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
-				"87e263bb-be8a-4a17-935c-7e8ff7808271"
+				"87e263bb-be8a-4a17-935c-7e8ff7808271",
+				"f3101777-b44c-45fa-b352-06d96039b066"
 			]
 		},
 		{
@@ -149,6 +150,13 @@
 		{
 			"uuid": "181e3544-4532-44bd-8b32-5f0ded50a335",
 			"title": "usercontrolled ball color selection",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "f3101777-b44c-45fa-b352-06d96039b066",
+			"title": "remove prints from server",
 			"description": "",
 			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
 			"steps": []

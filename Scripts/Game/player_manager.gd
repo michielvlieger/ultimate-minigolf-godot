@@ -8,6 +8,11 @@ const BALL = preload("res://Scenes/ball.tscn")
 
 var peer = ENetMultiplayerPeer.new()
 
+func _ready():
+	print(multiplayer.get_unique_id())
+	call_deferred("_add_player",multiplayer.get_unique_id())
+	#_add_player(multiplayer.get_unique_id())
+
 func _add_player(id = 1):
 	var player = BALL.instantiate()
 	player.set_data(id, str(id), game_manager.number_of_rounds, position)
@@ -19,16 +24,6 @@ func _add_player(id = 1):
 	for fplayer in get_children():
 		score_board.add_player.rpc(fplayer.name)
 	score_board.add_player.rpc(str(id))	
-
-func _on_host_pressed():
-	peer.create_server(135)
-	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(_add_player)
-	_add_player()
-
-func _on_join_pressed():
-	peer.create_client("localhost", 135)
-	multiplayer.multiplayer_peer = peer
 
 func _on_player_score_change(player):
 	score_board.change_score.rpc(player)

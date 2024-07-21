@@ -1,15 +1,22 @@
 extends Node
 
 # These signals can be connected to by a UI lobby scene or the game scene.
-signal player_connected(peer_id, player_info)
+signal player_connected(player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
 signal player_info_changed(peer_id)
 
 const PORT = 7000
-const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
+const DEFAULT_SERVER_IP = "ws://174.138.15.75:8915" #droplet ip
 const MAX_CONNECTIONS = 20
 
+var peer = WebSocketMultiplayerPeer.new()
+var rtc_peer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
+
+var lobby_info = {
+	"host_id": 0,
+	"lobby_id":""
+}
 # This will contain player info for every player,
 # with the keys being each player's unique IDs.
 var players = {}
@@ -20,102 +27,155 @@ var players = {}
 # entered in a UI scene.
 var player_info = {
 	"username": "Name",
-	"ball_color": Color.WHITE,
-	"is_ready": false
+	"ball_color": Color.WHITE_SMOKE.to_html(false),
+	"is_ready": false,
+	"id":0
 	}
 
-var players_loaded = 0
-
 func _ready():
-	multiplayer.peer_connected.connect(_on_player_connected)
-	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	multiplayer.connected_to_server.connect(_on_connected_ok)
-	multiplayer.connection_failed.connect(_on_connected_fail)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	#multiplayer.peer_connected.connect(_on_player_connected)
+	#multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	#multiplayer.connected_to_server.connect(_on_connected_ok)
+	#multiplayer.connection_failed.connect(_on_connected_fail)
+	#multiplayer.server_disconnected.connect(_on_server_disconnected)
+	connect_to_server()
 
+func connect_to_server():
+	peer.create_client("ws://174.138.15.75:8915")
 
-func join_game(address = ""):
-	if address.is_empty():
-		address = DEFAULT_SERVER_IP
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(address, PORT)
-	if error:
-		return error
-	multiplayer.multiplayer_peer = peer
+func _process(_delta):
+	peer.poll()
+	if peer.get_available_packet_count() > 0:
+		var packet = peer.get_packet()
+		if packet != null:
+			var dataString = packet.get_string_from_utf8()
+			var data = JSON.parse_string(dataString)
+			
+			#on peer connected to server
+			if data.message == Utilities.Message.id:
+				player_info["id"] = data.id
+				connected(data.id)
+			
+			#on user handshake??
+			if data.message == Utilities.Message.user_connected:
+				create_peer(data.id)
+			
+			#on connection to lobby
+			if data.message == Utilities.Message.lobby:
+				players = JSON.parse_string(data.players)
+				lobby_info["host_id"] = data.host_id
+				lobby_info["lobby_id"] = data.lobby_id
+				SceneManager.goto_scene("res://Scenes/lobby.tscn")
+				player_connected.emit(players[str(data.joined_player)])
+				print("connected to lobby: " + lobby_info["lobby_id"])
+			
+			#on ice candidate created
+			if data.message == Utilities.Message.candidate:
+				if rtc_peer.has_peer(data.orgPeer):
+					rtc_peer.get_peer(data.orgPeer).connection.add_ice_candidate(data.mid, data.index, data.sdp)
+			
+			#on offer
+			if data.message == Utilities.Message.offer:
+				if rtc_peer.has_peer(data.orgPeer):
+					rtc_peer.get_peer(data.orgPeer).connection.set_remote_description("offer", data.data)
+			
+			#on answer
+			if data.message == Utilities.Message.answer:
+				if rtc_peer.has_peer(data.orgPeer):
+					rtc_peer.get_peer(data.orgPeer).connection.set_remote_description("answer", data.data)
+			
+			#on player info updated
+			if data.message == Utilities.Message.update_player_info:
+				players[str(data.id)]["is_ready"] = data["is_ready"]
+				players[str(data.id)]["ball_color"] = data["ball_color"]
+				player_info_changed.emit(str(data.id))
 
+func connected(id):
+	rtc_peer.create_mesh(id)
+	multiplayer.multiplayer_peer = rtc_peer
 
-func create_game():
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT, MAX_CONNECTIONS)
-	if error:
-		return error
-	multiplayer.multiplayer_peer = peer
+#web rtc connection
+func create_peer(id):
+	if id != player_info["id"]:
+		var newpeer : WebRTCPeerConnection = WebRTCPeerConnection.new()
+		newpeer.initialize({
+			"iceServers" : [{ "urls": ["stun:stun.l.google.com:19302"] }]
+		})
+		
+		newpeer.session_description_created.connect(offer_created.bind(id))
+		newpeer.ice_candidate_created.connect(ice_candidate_created.bind(id))
+		rtc_peer.add_peer(newpeer, id)
+		
+		if !lobby_info["host_id"] == player_info["id"]:
+			newpeer.create_offer()
+
+func offer_created(type, data, id):
+	if !rtc_peer.has_peer(id):
+		return
+		
+	rtc_peer.get_peer(id).connection.set_local_description(type, data)
 	
-	var upnp = UPNP.new()
-	upnp.discover()
-	upnp.add_port_mapping(PORT)
-	
-	players[1] = player_info
-	player_connected.emit(1, player_info)
+	if type == "offer":
+		send_offer(id, data)
+	else:
+		send_answer(id, data)
 
+func send_offer(id, data):
+	var message = {
+		"peer" : id,
+		"orgPeer" : player_info["id"],
+		"message" :  Utilities.Message.offer,
+		"data": data,
+		"lobby_id": lobby_info["lobby_id"]
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
-func remove_multiplayer_peer():
-	multiplayer.multiplayer_peer = null
+func send_answer(id, data):
+	var message = {
+		"peer" : id,
+		"orgPeer" : player_info["id"],
+		"message" : Utilities.Message.answer,
+		"data": data,
+		"lobby_id": lobby_info["lobby_id"]
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
+func ice_candidate_created(midName, indexName, sdpName, id):
+	var message = {
+		"peer" : id,
+		"orgPeer" : player_info["id"],
+		"message" :  Utilities.Message.candidate,
+		"mid": midName,
+		"index": indexName,
+		"sdp": sdpName,
+		"lobby_id": lobby_info["lobby_id"]
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
-# When the server decides to start the game from a UI scene,
-# do Lobby.load_game.rpc(filepath)
-@rpc("call_local", "reliable")
-func load_game(game_scene_path):
-	SceneManager.goto_scene(game_scene_path)
+@rpc("any_peer", "call_local")
+func start_game():
+	var message = {
+		"message":  Utilities.Message.remove_lobby,
+		"lobby_id" : lobby_info["lobby_id"]
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	SceneManager.goto_scene("res://Scenes/main.tscn")
 
+func join_lobby(username:String, lobby_id:=""):
+	var message = {
+		"id" : player_info["id"],
+		"message" : Utilities.Message.lobby,
+		"username" : username,
+		"lobby_id" : lobby_id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
-# Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable")
-func player_loaded():
-	if multiplayer.is_server():
-		players_loaded += 1
-		if players_loaded == players.size():
-			$/root/Main.start_game()
-			players_loaded = 0
-
-
-# When a peer connects, send them my player info.
-# This allows transfer of all desired data for each player, not only the unique ID.
-func _on_player_connected(id):
-	_register_player.rpc_id(id, player_info)
-
-
-@rpc("any_peer", "reliable")
-func _register_player(new_player_info):
-	var new_player_id = multiplayer.get_remote_sender_id()
-	players[new_player_id] = new_player_info
-	player_connected.emit(new_player_id, new_player_info)
-
-@rpc("any_peer", "call_local", "reliable")
-func _update_player_info(new_player_info):
-	var player_id = multiplayer.get_remote_sender_id()
-	players[player_id] = new_player_info
-	player_info_changed.emit(player_id)
-
-
-func _on_player_disconnected(id):
-	players.erase(id)
-	player_disconnected.emit(id)
-
-
-func _on_connected_ok():
-	var peer_id = multiplayer.get_unique_id()
-	players[peer_id] = player_info
-	player_connected.emit(peer_id, player_info)
-
-
-func _on_connected_fail():
-	multiplayer.multiplayer_peer = null
-
-
-func _on_server_disconnected():
-	multiplayer.multiplayer_peer = null
-	players.clear()
-	server_disconnected.emit()
-
+func update_player_info():
+	var message = {
+		"id" : player_info["id"],
+		"message" : Utilities.Message.update_player_info,
+		"lobby_id": lobby_info["lobby_id"],
+		"ball_color": player_info["ball_color"],
+		"is_ready": player_info["is_ready"]
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())

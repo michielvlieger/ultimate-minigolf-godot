@@ -34,7 +34,7 @@ func _ready():
 
 func _on_item_selected(index:int):
 	add_item_to_selected_items.rpc(index)
-	
+	print(selected_items)
 	#if all players have selected go to item placing state
 	var all_players_have_selected = true
 	for player in player_manager.get_children():

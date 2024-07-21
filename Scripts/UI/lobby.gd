@@ -13,56 +13,55 @@ extends Control
 func _ready():
 	LobbyManager.player_connected.connect(_on_player_connect)
 	LobbyManager.player_info_changed.connect(_on_player_info_changed)
-	for peer_id in LobbyManager.players:
-		var player_info = LobbyManager.players[peer_id]
-		add_player_to_grid(peer_id, player_info)
-	
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.get_unique_id() == LobbyManager.lobby_info["host_id"]:
 		start_game_button.visible=true
 	else:
 		players_grid_container.columns = 3
 		column_name_4.visible = false
+	
+	for player in LobbyManager.players.values():
+		add_player_to_grid(player)
 
-func add_player_to_grid(peer_id, player_info):
+func add_player_to_grid(player):
 	var new_ball_color
 	var new_is_ready_check_box = is_ready_check_box.duplicate() as CheckBox
 	var new_label = username_label.duplicate() as Label
 	
-	new_label.text = player_info["username"]
+	new_label.text = player["username"]
 
-	if peer_id == multiplayer.get_unique_id():
+	if player["id"] == multiplayer.get_unique_id():
 		new_ball_color = get_dup_ball_color_button()
-		new_ball_color.color_changed.connect(_on_change_color)
-		new_ball_color.color = player_info["ball_color"]
+		new_ball_color.popup_closed.connect(_on_change_color.bind(new_ball_color))
+		new_ball_color.color = player["ball_color"]
 		
 		new_is_ready_check_box.disabled = false
-		new_is_ready_check_box.button_pressed = player_info["is_ready"]
+		new_is_ready_check_box.button_pressed = player["is_ready"]
 		new_is_ready_check_box.toggled.connect(_on_toggle_is_ready)
 	else:
 		new_ball_color = ball_color.duplicate()
-		new_ball_color.color = player_info["ball_color"]
+		new_ball_color.color = player["ball_color"]
 	
 	new_label.visible = true
 	new_ball_color.visible = true
 	new_is_ready_check_box.visible = true
 	
-	new_label.add_to_group(str(peer_id))
-	new_ball_color.add_to_group(str(peer_id))
-	new_is_ready_check_box.add_to_group(str(peer_id))
+	new_label.add_to_group(str(player["id"]))
+	new_ball_color.add_to_group(str(player["id"]))
+	new_is_ready_check_box.add_to_group(str(player["id"]))
 	
 	players_grid_container.add_child(new_label)
 	players_grid_container.add_child(new_ball_color)
 	players_grid_container.add_child(new_is_ready_check_box)
 	
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.get_unique_id() == LobbyManager.lobby_info["host_id"]:
 		start_game_button.visible=true
 		var new_remove_player_button = remove_player_button.duplicate()
 		new_remove_player_button.visible = true
-		new_remove_player_button.add_to_group(str(peer_id))
+		new_remove_player_button.add_to_group(str(player["id"]))
 		players_grid_container.add_child(new_remove_player_button)
 
 func update_player_info(peer_id):
-	var player_info = LobbyManager.players[peer_id]
+	var player_info = LobbyManager.players[str(peer_id)]
 	for child in players_grid_container.get_children():
 		if child.is_in_group(str(peer_id)):
 			if child is ColorRect:
@@ -85,23 +84,24 @@ func get_dup_ball_color_button() -> ColorPickerButton:
 
 func _on_start_game_button_pressed():
 	var all_players_ready = true
-	for player_info in LobbyManager.players:
+	for player_info in LobbyManager.players.values():
 		if !player_info["is_ready"]:
 			all_players_ready = false
 	
 	if all_players_ready:
-		pass
+		print("starting game")
+		LobbyManager.start_game.rpc()
 
 func _on_player_info_changed(peer_id):
 	update_player_info(peer_id)
 
-func _on_player_connect(peer_id, player_info):
-	add_player_to_grid(peer_id, player_info)
+func _on_player_connect(player):
+	add_player_to_grid(player)
 
 func _on_toggle_is_ready(toggled_on:bool):
 	LobbyManager.player_info["is_ready"] = toggled_on
-	LobbyManager._update_player_info.rpc(LobbyManager.player_info)
+	LobbyManager.update_player_info()
 
-func _on_change_color(color: Color):
-	LobbyManager.player_info["ball_color"] = color
-	LobbyManager._update_player_info.rpc(LobbyManager.player_info)
+func _on_change_color(color_picker: ColorPickerButton):
+	LobbyManager.player_info["ball_color"] = color_picker.color.to_html(false)
+	LobbyManager.update_player_info()

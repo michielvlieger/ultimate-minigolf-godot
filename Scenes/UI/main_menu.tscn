@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4qkiwg4pecl6"]
+[gd_scene load_steps=10 format=3 uid="uid://c4qkiwg4pecl6"]
 
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu/menu_hierarchy.gd" id="1_fc84i"]
 [ext_resource type="Texture2D" uid="uid://bljnhrg8al7p5" path="res://Assets/Screenshot_2.png" id="1_ugsj0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu/menu_switch_button.gd" id="5_eavnr"]
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu/MenuControls/join_lobby_controls.gd" id="5_ev6mx"]
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu/MenuControls/options_controls.gd" id="6_hix0p"]
+[ext_resource type="Script" path="res://server.gd" id="9_ia02y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4yvse"]
 font_size = 38
@@ -247,6 +248,9 @@ layout_mode = 2
 text = "Back"
 script = ExtResource("5_eavnr")
 to_menu = NodePath("../../../../../../MainMenu")
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("9_ia02y")
 
 [connection signal="pressed" from="CreateLobbyMenu/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/CreateLobby" to="CreateLobbyMenu" method="_on_create_lobby_pressed"]
 [connection signal="pressed" from="JoinLobbyMenu/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/JoinLobby" to="JoinLobbyMenu" method="_on_join_lobby_pressed"]
