@@ -9,5 +9,4 @@ func _ready():
 	self.pressed.connect(_on_pressed)
 
 func _on_pressed():
-	print(to_menu)
 	menu_switch_signal.emit(to_menu)

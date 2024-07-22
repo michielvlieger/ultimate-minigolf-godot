@@ -103,7 +103,7 @@ func send_to_player(userId, data):
 	
 func generate_random_string():
 	var result = ""
-	for i in range(32):
+	for i in range(4):
 		var index = randi() % characters.length()
 		result += characters[index]
 	return result

@@ -9,6 +9,16 @@
 			"uuid": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
 			"title": "Bug",
 			"color": "ea1010"
+		},
+		{
+			"uuid": "43e7b5a6-f105-49d4-ad04-106d2b236b44",
+			"title": "Notes",
+			"color": "44f42b"
+		},
+		{
+			"uuid": "8034ca2b-4558-4855-be93-e750061b342f",
+			"title": "Item",
+			"color": "b302a0"
 		}
 	],
 	"stages": [
@@ -23,16 +33,16 @@
 				"d8629454-9815-4265-9e09-3d73c6f0c235",
 				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
-				"87e263bb-be8a-4a17-935c-7e8ff7808271",
-				"f3101777-b44c-45fa-b352-06d96039b066"
+				"132e1877-78c7-4490-8c66-af3e65c0026c",
+				"c19fb982-91f8-483a-aaa5-7954a173a92a",
+				"fc593f4b-a2f0-4bd3-9a20-496d65388f64",
+				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17"
 			]
 		},
 		{
 			"uuid": "df1227e8-39da-4146-8aed-1089d584de52",
 			"title": "Doing",
-			"tasks": [
-				"1e1ef7e9-c477-4a7a-871d-051661a78253"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "486ebc10-f00d-4ffe-8442-91bece2f4bfc",
@@ -42,7 +52,17 @@
 				"f86ae1af-250f-4a87-b4d6-409df501bf24",
 				"473d191c-eec8-40d5-a993-e24e04890c41",
 				"69d6efe4-8f6f-44eb-9812-0e3ad14e7210",
-				"d78a9220-25a4-400c-8cb2-25e442b3c224"
+				"d78a9220-25a4-400c-8cb2-25e442b3c224",
+				"f3101777-b44c-45fa-b352-06d96039b066",
+				"87e263bb-be8a-4a17-935c-7e8ff7808271",
+				"1e1ef7e9-c477-4a7a-871d-051661a78253"
+			]
+		},
+		{
+			"uuid": "cf968ebe-c115-4565-9a62-439412f08591",
+			"title": "Notes",
+			"tasks": [
+				"ed7b2194-aae9-45cd-a991-1f1974050c71"
 			]
 		}
 	],
@@ -92,7 +112,7 @@
 		{
 			"uuid": "0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
 			"title": "Add game end",
-			"description": "",
+			"description": "On game end show final score and go back to lobby",
 			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
 			"steps": []
 		},
@@ -160,6 +180,50 @@
 			"description": "",
 			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
 			"steps": []
+		},
+		{
+			"uuid": "ed7b2194-aae9-45cd-a991-1f1974050c71",
+			"title": "server commands",
+			"description": "ps -ax (show all tasks)\nkill {id} (kills task)\nchmod -R +x ./ (give permission)\n./Ultimate minigolf.x86_64 --headless --server (start server)\nbg (run in background)\ndisown -h %1 (create everlasting bg task)\n",
+			"category": "43e7b5a6-f105-49d4-ad04-106d2b236b44",
+			"steps": []
+		},
+		{
+			"uuid": "132e1877-78c7-4490-8c66-af3e65c0026c",
+			"title": "Improve placing state",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": [
+				{
+					"details": "show grid",
+					"done": false
+				},
+				{
+					"details": "first make selection then submit",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "c19fb982-91f8-483a-aaa5-7954a173a92a",
+			"title": "Improve scaling of ball/ items/ level",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "fc593f4b-a2f0-4bd3-9a20-496d65388f64",
+			"title": "Add pause button to game for quitting the lobby",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
+			"title": "Cannon",
+			"description": "Cannon that tracks closest player in area2d and shoots a cannonball that collides with players, at an interval.",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
 		}
 	],
 	"layout": {
@@ -168,7 +232,8 @@
 				"90e801c5-aae9-49a3-948f-704fe38c7dd7"
 			],
 			[
-				"df1227e8-39da-4146-8aed-1089d584de52"
+				"df1227e8-39da-4146-8aed-1089d584de52",
+				"cf968ebe-c115-4565-9a62-439412f08591"
 			],
 			[
 				"486ebc10-f00d-4ffe-8442-91bece2f4bfc"
