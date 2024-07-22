@@ -49,6 +49,12 @@ open_scoreboard={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="course"
+2d_physics/layer_2="players"
+2d_physics/layer_3="players_without_collision"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

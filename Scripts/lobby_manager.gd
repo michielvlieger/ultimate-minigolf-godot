@@ -15,7 +15,9 @@ var rtc_peer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
 
 var lobby_info = {
 	"host_id": 0,
-	"lobby_id":""
+	"lobby_id":"",
+	"current_round": 1,
+	"number_of_rounds": 18
 }
 # This will contain player info for every player,
 # with the keys being each player's unique IDs.
@@ -65,7 +67,7 @@ func _process(_delta):
 				players = JSON.parse_string(data.players)
 				lobby_info["host_id"] = data.host_id
 				lobby_info["lobby_id"] = data.lobby_id
-				SceneManager.goto_scene("res://Scenes/lobby.tscn")
+				SceneManager.goto_scene("res://Scenes/UI/lobby.tscn")
 				player_connected.emit(players[str(data.joined_player)])
 				print("connected to lobby: " + lobby_info["lobby_id"])
 			
@@ -106,7 +108,7 @@ func create_peer(id):
 		newpeer.ice_candidate_created.connect(ice_candidate_created.bind(id))
 		rtc_peer.add_peer(newpeer, id)
 		
-		if !lobby_info["host_id"] == player_info["id"]:
+		if id < rtc_peer.get_unique_id():
 			newpeer.create_offer()
 
 func offer_created(type, data, id):

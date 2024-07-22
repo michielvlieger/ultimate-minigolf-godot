@@ -4,7 +4,6 @@ class_name ItemPlacingState
 @export var player_manager:PlayerManager
 @export var tile_map:TileMap
 @export var item_manager:ItemManager
-@export var game_manager:GameManager
 
 var placeholder_map_pos:Vector2i
 var has_placed:bool = false
@@ -51,7 +50,7 @@ func input(event):
 
 @rpc("any_peer","call_local","reliable")
 func place_item(map_pos:Vector2i, layer_id: int):
-	var item_to_display = item_manager.selected_items[game_manager.current_round][multiplayer.get_remote_sender_id()]
+	var item_to_display = item_manager.selected_items[LobbyManager.lobby_info["current_round"]][multiplayer.get_remote_sender_id()]
 	var scene_tile_id = item_manager.possible_items.find_key(item_to_display)
 	tile_map.set_cell(layer_id,map_pos,1,Vector2i.ZERO, scene_tile_id)
 	

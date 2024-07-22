@@ -17,10 +17,10 @@ radius = 5.0
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h03tr"]
 properties/0/path = NodePath(".:is_finished")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath(".:last_pos")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath(".:replicated_position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
@@ -33,9 +33,13 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:replicated_angular_velocity")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("CollisionShape2D:disabled")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="Ball" type="RigidBody2D" node_paths=PackedStringArray("camera_2d") groups=["balls"]]
 z_index = 1
+collision_layer = 4
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_odjwi")
 gravity_scale = 0.0

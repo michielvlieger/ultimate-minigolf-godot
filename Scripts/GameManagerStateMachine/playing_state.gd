@@ -1,7 +1,6 @@
 extends State
 class_name PlayingState
 
-@export var game_manager:GameManager
 @export var player_manager:PlayerManager
 @export var level_camera:Camera2D
 @export var tile_map: TileMap
@@ -24,8 +23,7 @@ func deactivate_items():
 
 func player_scored():
 	var all_players_finished = true
-	var players = player_manager.get_children()
-	for player in players:
+	for player in player_manager.get_children():
 		if !player.is_finished:
 			all_players_finished = false
 	
@@ -34,7 +32,7 @@ func player_scored():
 
 @rpc("any_peer","call_local","reliable")
 func next_round():
-	game_manager.current_round += 1
+	LobbyManager.lobby_info["current_round"] += 1
 	transitioned.emit("itemselectionstate")
 	level_camera.make_current()
 	deactivate_items.rpc()
@@ -44,7 +42,7 @@ func finish_game():
 	pass
 
 func all_players_scored():
-	if game_manager.current_round == game_manager.number_of_rounds:
+	if LobbyManager.lobby_info["current_round"] == LobbyManager.lobby_info["number_of_rounds"]:
 		finish_game.rpc()
 	else:
 		next_round.rpc()

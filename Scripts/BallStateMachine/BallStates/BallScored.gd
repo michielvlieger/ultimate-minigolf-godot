@@ -9,7 +9,7 @@ func enter():
 
 @rpc("any_peer","call_local","reliable")
 func emit_scored():
-	collision_shape_2d.disabled = true
+	ball.enable_ball_collision(false)
 	ball.visible = false
 	ball.is_finished = true
 	ball.scored.emit()

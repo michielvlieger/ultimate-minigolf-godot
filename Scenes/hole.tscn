@@ -24,6 +24,7 @@ affected_area = NodePath("GravityZone")
 strength = 20
 
 [node name="GravityZone" type="Area2D" parent="GravityComponent"]
+collision_mask = 2
 linear_damp_space_override = 1
 linear_damp = 3.0
 
@@ -35,6 +36,7 @@ script = ExtResource("4_73bpi")
 affected_area = NodePath("ScoringZone")
 
 [node name="ScoringZone" type="Area2D" parent="ScoringComponent"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoringComponent/ScoringZone"]
 shape = SubResource("CircleShape2D_t0rd7")

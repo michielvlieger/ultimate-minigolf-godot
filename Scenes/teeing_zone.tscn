@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://duh1fsimpq6x"]
+
+[ext_resource type="Script" path="res://Scripts/Game/item.gd" id="1_eohm2"]
+[ext_resource type="Script" path="res://Scripts/ItemComponents/safe_area_component.gd" id="2_15blm"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gma68"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0qlc"]
+size = Vector2(64, 64)
+
+[node name="TeeingZone" type="Node2D"]
+script = ExtResource("1_eohm2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_gma68")
+
+[node name="SafeAreaComponent" type="Node2D" parent="." node_paths=PackedStringArray("safe_area")]
+script = ExtResource("2_15blm")
+safe_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="SafeAreaComponent"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeAreaComponent/Area2D"]
+shape = SubResource("RectangleShape2D_f0qlc")

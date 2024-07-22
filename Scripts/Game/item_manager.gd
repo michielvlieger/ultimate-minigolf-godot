@@ -4,8 +4,8 @@ class_name ItemManager
 const ITEM_SELECT = preload("res://Scenes/UI/item_select.tscn")
 
 @onready var tile_map = $"../TileMap"
-@onready var game_manager = $"../GameManager"
 @onready var player_manager = $"../PlayerManager"
+@onready var game_state_machine = $"../GameStateMachine"
 
 @export var item_list_select:ItemList
 
@@ -37,10 +37,10 @@ func _on_item_selected(index:int):
 	#if all players have selected go to item placing state
 	var all_players_have_selected = true
 	for player in player_manager.get_children():
-		if !selected_items[game_manager.current_round].has(int(str(player.name))):
+		if !selected_items[LobbyManager.lobby_info["current_round"]].has(int(str(player.name))):
 			all_players_have_selected = false
 	if all_players_have_selected:
-		game_manager.on_child_transition.rpc("itemplacingstate")
+		game_state_machine.on_child_transition.rpc("itemplacingstate")
 	
 	#make item disabled in other players item list select (maybe display who chose what)
 
@@ -55,9 +55,9 @@ func add_item_to_selected_items(index):
 	if !selected_item:
 		return
 	
-	if !selected_items.has(game_manager.current_round):
-		selected_items[game_manager.current_round] = {}
-	selected_items[game_manager.current_round][multiplayer.get_remote_sender_id()] = selected_item
+	if !selected_items.has(LobbyManager.lobby_info["current_round"]):
+		selected_items[LobbyManager.lobby_info["current_round"]] = {}
+	selected_items[LobbyManager.lobby_info["current_round"]][multiplayer.get_remote_sender_id()] = selected_item
 	
 func spawn_selected_items():
 	pass

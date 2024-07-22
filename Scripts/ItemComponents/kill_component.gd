@@ -12,7 +12,7 @@ func _ready():
 
 func _on_kill_zone_body_entered(body):
 	if body is Ball:
-		kill_player.rpc(body)
+		body.kill.emit()
 		for component in safe_time_components:
 			component.killed_players.append(body)
 		#safe time after kill
@@ -20,7 +20,3 @@ func _on_kill_zone_body_entered(body):
 		
 		for component in safe_time_components:
 			component.killed_players.erase(body)
-
-@rpc("any_peer","call_local","reliable")
-func kill_player(player):
-	player.kill.emit()

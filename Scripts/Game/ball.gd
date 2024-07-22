@@ -76,23 +76,28 @@ func reset_player():
 	angular_velocity = 0
 	position = Vector2.ZERO
 	last_pos = Vector2.ZERO
+	state_machine.on_child_transition("idle")
+	visible = true
+	is_finished = false
 
 func _on_reset(_pos):
 	_reset_player = true
-	reset_variables.rpc()
+	#reset_variables.rpc()
+	enable_ball_collision(false)
 
-@rpc("any_peer","call_local","reliable")
-func reset_variables():
-	state_machine.on_child_transition("idle")
-	collision_shape_2d.disabled = false
-	visible = true
-	is_finished = false
+#@rpc("any_peer","call_local","reliable")
+#func reset_variables():
+	#state_machine.on_child_transition("idle")
+	#visible = true
+	#is_finished = false
 
 func _on_kill():
 	_kill_player = true
 
 @rpc("any_peer","call_local","reliable")
 func kill_player():
+	if last_pos == Vector2.ZERO:
+		enable_ball_collision(false)
 	transform.origin = last_pos
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
@@ -101,3 +106,8 @@ func kill_player():
 @rpc("any_peer","call_local","reliable")
 func set_camera_to_player(ball):
 	ball.camera_2d.make_current()
+
+@rpc("any_peer","call_local","reliable")
+func enable_ball_collision(to_bool):
+	set_collision_layer_value(2,to_bool)
+	set_collision_mask_value(2,to_bool)
