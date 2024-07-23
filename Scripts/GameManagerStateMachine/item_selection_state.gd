@@ -6,7 +6,7 @@ class_name ItemSelectionState
 
 func enter():
 	ui_manager.change_visibility_item_selection_ui(true)
-	item_manager.reset_item_list_selection.rpc()
+	ui_manager.item_selection_ui.reset_item_list_selection.rpc()
 	
 func exit():
 	ui_manager.change_visibility_item_selection_ui(false)

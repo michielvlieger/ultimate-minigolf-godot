@@ -1,13 +1,10 @@
 extends Node2D
 class_name ItemManager
 
-const ITEM_SELECT = preload("res://Scenes/UI/item_select.tscn")
-
 @onready var tile_map = $"../TileMap"
 @onready var player_manager = $"../PlayerManager"
 @onready var game_state_machine = $"../GameStateMachine"
-
-@export var item_list_select:ItemList
+@onready var ui_manager = $"../UIManager" as UIManager
 
 # dictionary with all possible items with scene tile id
 #	{
@@ -28,9 +25,9 @@ func _ready():
 		var item_scene_tile_id = itemscene_collection.get_scene_tile_id(i)
 		var item_scene = itemscene_collection.get_scene_tile_scene(item_scene_tile_id).instantiate()
 		possible_items[item_scene_tile_id] = item_scene
-		add_item_to_selection_ui(item_scene)
-	
-	item_list_select.item_selected.connect(_on_item_selected)
+		print(ui_manager)
+		ui_manager.item_selection_ui.add_item_to_selection_ui(item_scene)
+	ui_manager.item_selection_ui.item_list.item_selected.connect(_on_item_selected)
 
 func _on_item_selected(index:int):
 	add_item_to_selected_items.rpc(index)
@@ -46,7 +43,7 @@ func _on_item_selected(index:int):
 
 @rpc("any_peer","call_local","reliable")
 func add_item_to_selected_items(index):
-	var selected_item_text = item_list_select.get_item_text(index)
+	var selected_item_text = ui_manager.item_selection_ui.item_list.get_item_text(index)
 	var selected_item = null
 	for item in possible_items.values():
 		if item.name == selected_item_text:
@@ -58,16 +55,3 @@ func add_item_to_selected_items(index):
 	if !selected_items.has(LobbyManager.lobby_info["current_round"]):
 		selected_items[LobbyManager.lobby_info["current_round"]] = {}
 	selected_items[LobbyManager.lobby_info["current_round"]][multiplayer.get_remote_sender_id()] = selected_item
-	
-func spawn_selected_items():
-	pass
-
-func add_item_to_selection_ui(item):
-	#var item_select = ITEM_SELECT.instantiate()
-	#item_select.set_data.rpc(thumb_nail_image,item.name)
-	var thumb_nail_texture = item.get_node("ThumbNail").texture
-	item_list_select.add_item(item.name,thumb_nail_texture)
-
-@rpc("any_peer","call_local","reliable")
-func reset_item_list_selection():
-	item_list_select.deselect_all()

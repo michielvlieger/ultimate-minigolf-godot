@@ -181,3 +181,6 @@ func update_player_info():
 		"is_ready": player_info["is_ready"]
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+
+func leave_lobby():
+	pass

@@ -85,12 +85,6 @@ func _on_reset(_pos):
 	#reset_variables.rpc()
 	enable_ball_collision(false)
 
-#@rpc("any_peer","call_local","reliable")
-#func reset_variables():
-	#state_machine.on_child_transition("idle")
-	#visible = true
-	#is_finished = false
-
 func _on_kill():
 	_kill_player = true
 

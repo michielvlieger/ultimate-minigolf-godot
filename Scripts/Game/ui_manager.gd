@@ -1,16 +1,31 @@
-extends Node2D
+extends CanvasLayer
 class_name UIManager
 
-@onready var score_board = $"../ScoreBoard"
-@export var item_selection_ui:CanvasLayer
+@onready var score_board = $ScoreBoard
+@onready var item_selection_ui = $ItemSelectionUI
+@onready var menu = $Menu
 
+var panel_was_open = null
 func _input(event):
 	if event.is_action_pressed("open_scoreboard"):
-		score_board.visible = true
-
+		interchange_visibility(score_board,true)
 	if event.is_action_released("open_scoreboard"):
-		score_board.visible = false
+		interchange_visibility(score_board,false)
 
 @rpc("any_peer","call_local","reliable")
 func change_visibility_item_selection_ui(fis_visible:bool):
 	item_selection_ui.visible=fis_visible
+
+func interchange_visibility(panel:PanelContainer, to_bool:bool):
+	if to_bool:
+		panel.visible = true
+		if item_selection_ui.visible:
+			item_selection_ui.visible = false
+			panel_was_open = item_selection_ui
+	else:
+		panel.visible = false
+		if panel_was_open:
+			panel_was_open.visible=true
+
+func _on_menu_button_pressed():
+	interchange_visibility(menu,!menu.visible)
