@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3qvtuhexhxnq"]
+[gd_scene load_steps=5 format=3 uid="uid://d3qvtuhexhxnq"]
 
 [ext_resource type="Script" path="res://Scripts/Game/ui_manager.gd" id="1_1lujc"]
 [ext_resource type="Script" path="res://Scripts/UI/GameUI/item_selection.gd" id="3_djm0y"]
 [ext_resource type="Script" path="res://Scripts/UI/GameUI/scoreboard.gd" id="3_iwhjo"]
-[ext_resource type="Script" path="res://Scripts/UI/GameUI/menu.gd" id="4_ejq0n"]
 [ext_resource type="Texture2D" uid="uid://5fy30f18agap" path="res://Assets/Icons/menu.png" id="4_xoy3u"]
 
 [node name="UIManager" type="CanvasLayer"]
@@ -89,41 +88,7 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="Menu" type="PanelContainer" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.5
-offset_top = -37.5
-offset_right = 64.5
-offset_bottom = 37.5
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_ejq0n")
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"HeaderLarge"
-text = "Menu"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="Menu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="LeaveLobbyButton" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+[node name="LeaveLobbyButton" type="Button" parent="ScoreBoard/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Leave Lobby"
 
@@ -140,5 +105,5 @@ icon = ExtResource("4_xoy3u")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/LeaveLobbyButton" to="Menu" method="_on_leave_lobby_button_pressed"]
+[connection signal="pressed" from="ScoreBoard/MarginContainer/VBoxContainer/LeaveLobbyButton" to="ScoreBoard" method="_on_leave_lobby_button_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]

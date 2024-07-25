@@ -34,3 +34,8 @@ func change_score(player):
 	var score_nodes = get_tree().get_nodes_in_group(str(player.peer_id))
 	for i in score_nodes.size()-1:
 		score_nodes[i+1].set_text(str(player.scores[i]))
+
+func _on_leave_lobby_button_pressed():
+	for peer in multiplayer.get_peers():
+		multiplayer.multiplayer_peer.disconnect_peer(peer)
+	SceneManager.goto_scene("res://Scenes/UI/main_menu.tscn")

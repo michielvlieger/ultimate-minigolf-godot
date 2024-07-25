@@ -3,7 +3,6 @@ class_name UIManager
 
 @onready var score_board = $ScoreBoard
 @onready var item_selection_ui = $ItemSelectionUI
-@onready var menu = $Menu
 
 var panel_was_open = null
 func _input(event):
@@ -28,4 +27,4 @@ func interchange_visibility(panel:PanelContainer, to_bool:bool):
 			panel_was_open.visible=true
 
 func _on_menu_button_pressed():
-	interchange_visibility(menu,!menu.visible)
+	interchange_visibility(score_board,!score_board.visible)

@@ -42,5 +42,9 @@ func _on_player_scored():
 		game_state_machine.states["playingstate"].player_scored()
 
 func _on_player_disconnect(peer_id):
-	get_node(str(peer_id)).queue_free()
-	ui_manager.score_board.remove_player.rpc(peer_id)	
+	if peer_id == LobbyManager.lobby_info["host_id"]:
+		for peer in multiplayer.get_peers():
+			multiplayer.multiplayer_peer.disconnect_peer(peer)
+	else:
+		get_node(str(peer_id)).queue_free()
+		ui_manager.score_board.remove_player.rpc(peer_id)	
