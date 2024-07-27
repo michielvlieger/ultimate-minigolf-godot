@@ -33,8 +33,11 @@
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
 				"132e1877-78c7-4490-8c66-af3e65c0026c",
 				"c19fb982-91f8-483a-aaa5-7954a173a92a",
-				"fc593f4b-a2f0-4bd3-9a20-496d65388f64",
-				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17"
+				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
+				"9dc0f560-1717-4f84-8865-a8c2ee6547f8",
+				"95228139-4b26-4ded-a6bb-80b80404b464",
+				"e4c6e8cc-f4c5-4a61-abb6-1254f1a1a07a",
+				"ec0ec9c3-0bc3-4787-8305-c645f2944370"
 			]
 		},
 		{
@@ -56,7 +59,8 @@
 				"1e1ef7e9-c477-4a7a-871d-051661a78253",
 				"0bcf2f95-9797-447d-999a-adcb29632f28",
 				"5a302273-784e-4c90-b66c-4b1f3df32c27",
-				"610aa563-7c6b-413d-9a65-6c66e905994c"
+				"610aa563-7c6b-413d-9a65-6c66e905994c",
+				"fc593f4b-a2f0-4bd3-9a20-496d65388f64"
 			]
 		},
 		{
@@ -229,6 +233,34 @@
 		{
 			"uuid": "610aa563-7c6b-413d-9a65-6c66e905994c",
 			"title": "can't connect more then 2 players",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "9dc0f560-1717-4f84-8865-a8c2ee6547f8",
+			"title": "After scoring go to spectating",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "95228139-4b26-4ded-a6bb-80b80404b464",
+			"title": "Only host: button in pause menu to go back to lobby",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "e4c6e8cc-f4c5-4a61-abb6-1254f1a1a07a",
+			"title": "Only host: game settings with menu to change them in lobby",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "ec0ec9c3-0bc3-4787-8305-c645f2944370",
+			"title": "is_ready not shared to joining players",
 			"description": "",
 			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
 			"steps": []
