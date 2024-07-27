@@ -26,24 +26,33 @@
 			"uuid": "90e801c5-aae9-49a3-948f-704fe38c7dd7",
 			"title": "Todo",
 			"tasks": [
+				"d8629454-9815-4265-9e09-3d73c6f0c235",
+				"ec0ec9c3-0bc3-4787-8305-c645f2944370",
+				"80e64f6f-c282-4b6b-af3c-503c59ac162e",
 				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
 				"03ba63a9-75b9-4e9c-a589-4403c9a50b28",
-				"d8629454-9815-4265-9e09-3d73c6f0c235",
 				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
-				"132e1877-78c7-4490-8c66-af3e65c0026c",
 				"c19fb982-91f8-483a-aaa5-7954a173a92a",
-				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
 				"9dc0f560-1717-4f84-8865-a8c2ee6547f8",
 				"95228139-4b26-4ded-a6bb-80b80404b464",
 				"e4c6e8cc-f4c5-4a61-abb6-1254f1a1a07a",
-				"ec0ec9c3-0bc3-4787-8305-c645f2944370"
+				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
+				"5199332b-07da-4f1f-b748-f8ebf6620063",
+				"8766f801-be3f-487b-8a76-302b092f1a21",
+				"aad2dfe2-c65f-4d56-8cbf-79469690da2e",
+				"3ea864d1-ed11-4b34-bbbb-9f87a9680fd1",
+				"4f0db52b-c387-44fc-b2c8-df9571e1daa2",
+				"0ec133a7-7a49-406c-80cf-7ccf8b790f23",
+				"25aa075f-36f3-48d1-b538-e12491e0f942"
 			]
 		},
 		{
 			"uuid": "df1227e8-39da-4146-8aed-1089d584de52",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"132e1877-78c7-4490-8c66-af3e65c0026c"
+			]
 		},
 		{
 			"uuid": "486ebc10-f00d-4ffe-8442-91bece2f4bfc",
@@ -201,11 +210,11 @@
 			"steps": [
 				{
 					"details": "show grid",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "first make selection then submit",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -261,6 +270,62 @@
 		{
 			"uuid": "ec0ec9c3-0bc3-4787-8305-c645f2944370",
 			"title": "is_ready not shared to joining players",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "5199332b-07da-4f1f-b748-f8ebf6620063",
+			"title": "Sticky floor/wall",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "8766f801-be3f-487b-8a76-302b092f1a21",
+			"title": "Fan",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "aad2dfe2-c65f-4d56-8cbf-79469690da2e",
+			"title": "Spinning hammer",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "3ea864d1-ed11-4b34-bbbb-9f87a9680fd1",
+			"title": "Portals",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "4f0db52b-c387-44fc-b2c8-df9571e1daa2",
+			"title": "Spinning wall",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "0ec133a7-7a49-406c-80cf-7ccf8b790f23",
+			"title": "Item removal item",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "25aa075f-36f3-48d1-b538-e12491e0f942",
+			"title": "Landmine",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "80e64f6f-c282-4b6b-af3c-503c59ac162e",
+			"title": "Player can place items on spawn en hole",
 			"description": "",
 			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
 			"steps": []

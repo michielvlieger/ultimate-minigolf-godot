@@ -4,17 +4,24 @@ class_name ItemPlacingState
 @export var player_manager:PlayerManager
 @export var tile_map:TileMap
 @export var item_manager:ItemManager
+@export var ui_manager: UIManager
+@export var tile_map_visible_grid: Node2D
 
 var placeholder_map_pos:Vector2i
 var has_placed:bool = false
 var users_placed = []
 
+func _ready():
+	ui_manager.submit_button.pressed.connect(submit_placement)
+
 func enter():
 	has_placed = false
 	add_user_to_users_placed.rpc()
+	tile_map_visible_grid.visible = true
 
 func exit():
 	resetting_player.rpc()
+	tile_map_visible_grid.visible = false
 
 @rpc("any_peer","call_local","reliable")
 func resetting_player():
@@ -33,20 +40,37 @@ func input(event):
 	#if already a tile in cell
 	if tile_map.get_cell_alternative_tile(0, map_pos) > 0:
 		return
-	if event is InputEventMouseMotion:
+	#if spawn or hole in cell
+	if tile_map.get_cell_alternative_tile(2, map_pos) > 0:
+		return
+	
+	if OS.get_name() in ["Android", "iOS"] and event.is_action_pressed("click"):
 		if map_pos == placeholder_map_pos:
 			return
-		
+			
 		if placeholder_map_pos:
 			remove_item.rpc(placeholder_map_pos,1)
 		
 		placeholder_map_pos = map_pos
 		place_item.rpc(map_pos,1)
-	if event.is_action_pressed("click"):
-		remove_item.rpc(map_pos,1)
-		place_item.rpc(map_pos,0)
-		has_placed = true
-		check_start_round.rpc()
+		
+		#show submit button
+		ui_manager.submit_button.visible = true
+	else:
+		if event is InputEventMouseMotion:
+			if map_pos == placeholder_map_pos:
+				return
+			
+			if placeholder_map_pos:
+				remove_item.rpc(placeholder_map_pos,1)
+			
+			placeholder_map_pos = map_pos
+			place_item.rpc(map_pos,1)
+		if event.is_action_pressed("click"):
+			remove_item.rpc(map_pos,1)
+			place_item.rpc(map_pos,0)
+			has_placed = true
+			check_start_round.rpc()
 
 @rpc("any_peer","call_local","reliable")
 func place_item(map_pos:Vector2i, layer_id: int):
@@ -67,3 +91,10 @@ func check_start_round():
 @rpc("any_peer","call_local","reliable")
 func add_user_to_users_placed():
 	users_placed.append(multiplayer.get_remote_sender_id())
+
+func submit_placement():
+	remove_item.rpc(placeholder_map_pos,1)
+	place_item.rpc(placeholder_map_pos,0)
+	has_placed = true
+	check_start_round.rpc()
+	ui_manager.submit_button.visible = false

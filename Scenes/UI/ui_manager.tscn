@@ -5,8 +5,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/GameUI/scoreboard.gd" id="3_iwhjo"]
 [ext_resource type="Texture2D" uid="uid://5fy30f18agap" path="res://Assets/Icons/menu.png" id="4_xoy3u"]
 
-[node name="UIManager" type="CanvasLayer"]
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("submit_button")]
 script = ExtResource("1_1lujc")
+submit_button = NodePath("SubmitButton")
 
 [node name="ItemSelectionUI" type="PanelContainer" parent="."]
 visible = false
@@ -102,6 +103,23 @@ offset_right = -24.0
 offset_bottom = 64.0
 grow_horizontal = 0
 icon = ExtResource("4_xoy3u")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SubmitButton" type="Button" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -64.0
+offset_right = -25.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Submit"
 icon_alignment = 1
 expand_icon = true
 
