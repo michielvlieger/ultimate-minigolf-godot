@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3qvtuhexhxnq"]
+[gd_scene load_steps=6 format=3 uid="uid://d3qvtuhexhxnq"]
 
 [ext_resource type="Script" path="res://Scripts/Game/ui_manager.gd" id="1_1lujc"]
 [ext_resource type="Script" path="res://Scripts/UI/GameUI/item_selection.gd" id="3_djm0y"]
 [ext_resource type="Script" path="res://Scripts/UI/GameUI/scoreboard.gd" id="3_iwhjo"]
 [ext_resource type="Texture2D" uid="uid://5fy30f18agap" path="res://Assets/Icons/menu.png" id="4_xoy3u"]
+[ext_resource type="Script" path="res://Scripts/UI/GameUI/spectating_panel.gd" id="5_d4nn6"]
 
-[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("submit_button")]
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("submit_button", "spectating_control")]
 script = ExtResource("1_1lujc")
 submit_button = NodePath("SubmitButton")
+spectating_control = NodePath("SpectatingControl")
 
 [node name="ItemSelectionUI" type="PanelContainer" parent="."]
 visible = false
@@ -123,5 +125,63 @@ text = "Submit"
 icon_alignment = 1
 expand_icon = true
 
+[node name="SpectatingControl" type="PanelContainer" parent="." node_paths=PackedStringArray("username_label")]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 24.0
+offset_right = 143.0
+offset_bottom = 109.0
+grow_horizontal = 2
+script = ExtResource("5_d4nn6")
+username_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/UsernameLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="SpectatingControl"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SpectatingControl/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SpectatingControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spectating"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SpectatingControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CyclePrevious" type="Button" parent="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+text = "previous"
+
+[node name="UsernameLabel" type="Label" parent="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "[username]"
+horizontal_alignment = 1
+
+[node name="CycleNext" type="Button" parent="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+text = "next"
+
 [connection signal="pressed" from="ScoreBoard/MarginContainer/VBoxContainer/LeaveLobbyButton" to="ScoreBoard" method="_on_leave_lobby_button_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer/CyclePrevious" to="SpectatingControl" method="_on_cycle_previous_pressed"]
+[connection signal="pressed" from="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer/CycleNext" to="SpectatingControl" method="_on_cycle_next_pressed"]

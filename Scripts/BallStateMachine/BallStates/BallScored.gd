@@ -14,4 +14,4 @@ func emit_scored():
 	ball.visible = false
 	ball.is_finished = true
 	ball.scored.emit()
-	transitioned.emit("waiting")
+	transitioned.emit("spectating")

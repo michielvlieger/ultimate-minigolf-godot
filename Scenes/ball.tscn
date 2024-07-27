@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhcnsp7x8c6ul"]
+[gd_scene load_steps=13 format=3 uid="uid://bhcnsp7x8c6ul"]
 
 [ext_resource type="Script" path="res://Scripts/Game/ball.gd" id="1_0r2ib"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="1_4bamn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/BallStateMachine/BallStates/BallMoving.gd" id="5_3alt8"]
 [ext_resource type="Script" path="res://Scripts/BallStateMachine/BallStates/BallScoring.gd" id="6_ftdh8"]
 [ext_resource type="Script" path="res://Scripts/BallStateMachine/BallStates/BallScored.gd" id="7_l4uk5"]
+[ext_resource type="Script" path="res://Scripts/BallStateMachine/BallStates/spectating.gd" id="9_splwy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odjwi"]
 bounce = 0.7
@@ -85,6 +86,9 @@ script = ExtResource("6_ftdh8")
 
 [node name="Scored" type="Node2D" parent="StateMachine"]
 script = ExtResource("7_l4uk5")
+
+[node name="Spectating" type="Node2D" parent="StateMachine"]
+script = ExtResource("9_splwy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_h03tr")

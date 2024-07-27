@@ -4,6 +4,7 @@ class_name UIManager
 @onready var score_board = $ScoreBoard
 @onready var item_selection_ui = $ItemSelectionUI
 @export var submit_button: Button
+@export var spectating_control: PanelContainer
 
 var panel_was_open = null
 

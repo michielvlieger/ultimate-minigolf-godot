@@ -11,20 +11,20 @@ signal kill
 @onready var state_scored = $StateMachine/Scored
 @onready var collision_shape_2d = $CollisionShape2D
 
-@export var replicated_position : Vector2
-@export var replicated_rotation : float
-@export var replicated_linear_velocity : Vector2
-@export var replicated_angular_velocity : float
+var replicated_position : Vector2
+var replicated_rotation : float
+var replicated_linear_velocity : Vector2
+var replicated_angular_velocity : float
 
-@export var peer_id:int
-@export var player_name:String
-@export var is_finished:bool
-@export var last_pos: Vector2
-@export var spawn_position: Vector2
+var peer_id:int
+var player_name:String
+var is_finished:bool
+var last_pos: Vector2
+var spawn_position: Vector2
 var _kill_player = false
 var _reset_player = false
 
-@export var scores: Array:
+var scores: Array:
 	get = get_scores, set = set_scores
 		
 func get_scores():

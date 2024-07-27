@@ -44,7 +44,8 @@
 				"3ea864d1-ed11-4b34-bbbb-9f87a9680fd1",
 				"4f0db52b-c387-44fc-b2c8-df9571e1daa2",
 				"0ec133a7-7a49-406c-80cf-7ccf8b790f23",
-				"25aa075f-36f3-48d1-b538-e12491e0f942"
+				"25aa075f-36f3-48d1-b538-e12491e0f942",
+				"f6422665-20a1-4075-890d-1f03f4d3de5c"
 			]
 		},
 		{
@@ -327,6 +328,13 @@
 			"uuid": "80e64f6f-c282-4b6b-af3c-503c59ac162e",
 			"title": "Player can place items on spawn en hole",
 			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "f6422665-20a1-4075-890d-1f03f4d3de5c",
+			"title": "Spectating does weird",
+			"description": "props because of changing states which gets emited as rpc?",
 			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
 			"steps": []
 		}
