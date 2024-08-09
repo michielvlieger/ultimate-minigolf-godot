@@ -17,6 +17,7 @@ func _input(event):
 @rpc("any_peer","call_local","reliable")
 func change_visibility_item_selection_ui(fis_visible:bool):
 	item_selection_ui.visible=fis_visible
+	spectating_control.visible = false
 
 func interchange_visibility(panel:PanelContainer, to_bool:bool):
 	if to_bool:

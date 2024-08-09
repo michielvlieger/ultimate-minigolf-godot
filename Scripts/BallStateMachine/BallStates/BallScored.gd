@@ -7,6 +7,7 @@ class_name BallScored
 
 func enter():
 	emit_scored.rpc()
+	call_deferred("transition_to_spectating")
 
 @rpc("any_peer","call_local","reliable")
 func emit_scored():
@@ -14,4 +15,6 @@ func emit_scored():
 	ball.visible = false
 	ball.is_finished = true
 	ball.scored.emit()
+
+func transition_to_spectating():
 	transitioned.emit("spectating")

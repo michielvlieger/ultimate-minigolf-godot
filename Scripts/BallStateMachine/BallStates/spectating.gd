@@ -10,7 +10,6 @@ var spectating_control
 var username_label
 
 func _ready():
-	#SpectatingControl.cycle_spectating.connect(cycle_players)
 	for node in ball.get_parent().get_parent().get_children():
 		if node is UIManager:
 			spectating_control = node.spectating_control
@@ -34,7 +33,6 @@ func enter():
 	username_label.text = LobbyManager.players[spectating_id]["username"]
 
 func update(_delta):
-	print(player_cameras)
 	if player_cameras.is_empty() or !spectating_id:
 		return
 	for player in ball.get_parent().get_children():
@@ -58,6 +56,3 @@ func cycle_players(is_next: bool):
 	spectating_id = player_cameras.keys()[dictionary_index]
 	player_cameras[spectating_id].make_current()
 	username_label.text = LobbyManager.players[spectating_id]["username"]
-
-func exit():
-	spectating_control.visible = false

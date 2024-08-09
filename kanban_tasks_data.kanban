@@ -29,12 +29,12 @@
 				"d8629454-9815-4265-9e09-3d73c6f0c235",
 				"ec0ec9c3-0bc3-4787-8305-c645f2944370",
 				"80e64f6f-c282-4b6b-af3c-503c59ac162e",
+				"ca29660f-e1e4-4e4a-91a9-34d43f17aff8",
 				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
 				"03ba63a9-75b9-4e9c-a589-4403c9a50b28",
 				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
 				"c19fb982-91f8-483a-aaa5-7954a173a92a",
-				"9dc0f560-1717-4f84-8865-a8c2ee6547f8",
 				"95228139-4b26-4ded-a6bb-80b80404b464",
 				"e4c6e8cc-f4c5-4a61-abb6-1254f1a1a07a",
 				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
@@ -45,7 +45,8 @@
 				"4f0db52b-c387-44fc-b2c8-df9571e1daa2",
 				"0ec133a7-7a49-406c-80cf-7ccf8b790f23",
 				"25aa075f-36f3-48d1-b538-e12491e0f942",
-				"f6422665-20a1-4075-890d-1f03f4d3de5c"
+				"ea8cb892-2234-4e4b-9309-d0854341586f",
+				"ee3bc393-3d2c-44b6-a23a-4038a3e082bc"
 			]
 		},
 		{
@@ -63,12 +64,15 @@
 				"f86ae1af-250f-4a87-b4d6-409df501bf24",
 				"473d191c-eec8-40d5-a993-e24e04890c41",
 				"69d6efe4-8f6f-44eb-9812-0e3ad14e7210",
+				"4a26492e-d799-4f7d-8c61-d9e269309977",
+				"9dc0f560-1717-4f84-8865-a8c2ee6547f8",
 				"d78a9220-25a4-400c-8cb2-25e442b3c224",
 				"f3101777-b44c-45fa-b352-06d96039b066",
 				"87e263bb-be8a-4a17-935c-7e8ff7808271",
 				"1e1ef7e9-c477-4a7a-871d-051661a78253",
 				"0bcf2f95-9797-447d-999a-adcb29632f28",
 				"5a302273-784e-4c90-b66c-4b1f3df32c27",
+				"f6422665-20a1-4075-890d-1f03f4d3de5c",
 				"610aa563-7c6b-413d-9a65-6c66e905994c",
 				"fc593f4b-a2f0-4bd3-9a20-496d65388f64"
 			]
@@ -332,10 +336,38 @@
 			"steps": []
 		},
 		{
+			"uuid": "4a26492e-d799-4f7d-8c61-d9e269309977",
+			"title": "Update on spectating state not called",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
 			"uuid": "f6422665-20a1-4075-890d-1f03f4d3de5c",
 			"title": "Spectating does weird",
 			"description": "props because of changing states which gets emited as rpc?",
 			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "ca29660f-e1e4-4e4a-91a9-34d43f17aff8",
+			"title": "score not updating only at host",
+			"description": "",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "ea8cb892-2234-4e4b-9309-d0854341586f",
+			"title": "Drop out floor",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "ee3bc393-3d2c-44b6-a23a-4038a3e082bc",
+			"title": "Wall",
+			"description": "",
+			"category": "8034ca2b-4558-4855-be93-e750061b342f",
 			"steps": []
 		}
 	],

@@ -37,9 +37,13 @@ func _on_item_selected(index:int):
 		if !selected_items[LobbyManager.lobby_info["current_round"]].has(int(str(player.name))):
 			all_players_have_selected = false
 	if all_players_have_selected:
-		game_state_machine.on_child_transition.rpc("itemplacingstate")
+		change_to_item_placing.rpc()
 	
 	#make item disabled in other players item list select (maybe display who chose what)
+
+@rpc("any_peer","call_local","reliable")
+func change_to_item_placing():
+	game_state_machine.on_child_transition("itemplacingstate")
 
 @rpc("any_peer","call_local","reliable")
 func add_item_to_selected_items(index):

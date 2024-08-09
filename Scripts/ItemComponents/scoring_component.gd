@@ -15,4 +15,5 @@ func _on_scoring_zone_body_entered(body):
 
 func _on_scoring_zone_body_exited(body):
 	if body is Ball:
-		body.get_node("StateMachine").on_child_transition("moving")
+		if body.get_node("StateMachine").current_state.name.to_lower() == "Scoring".to_lower():
+			body.get_node("StateMachine").on_child_transition("moving")

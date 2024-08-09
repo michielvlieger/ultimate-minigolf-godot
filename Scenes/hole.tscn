@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c20jyagwb3s3f"]
+[gd_scene load_steps=7 format=3 uid="uid://c6q0nk8psbv3e"]
 
 [ext_resource type="Script" path="res://Scripts/Game/item.gd" id="1_30a5f"]
 [ext_resource type="Texture2D" uid="uid://bh3uudl4jynoa" path="res://Assets/golfball.png" id="2_q3nbb"]
