@@ -15,12 +15,10 @@ func _ready():
 			child.transitioned.connect(on_child_transition)
 	
 	if initial_state:
-		print(initial_state)
 		initial_state.enter()
 		current_state = initial_state
 			
 func _process(delta):
-	#print(current_state)
 	if !is_multiplayer_authority():
 		return
 	if current_state:
@@ -44,9 +42,8 @@ func on_child_transition(new_state_name):
 	if !new_state:
 		return
 	
-	print("Player: " + str(multiplayer.get_unique_id()) +" is switching from: " + current_state.name + " to: " + new_state_name)
+	#print("Player: " + str(multiplayer.get_unique_id()) +" is switching from: " + current_state.name + " to: " + new_state_name)
 	if current_state:
-		print("running exit function")
 		current_state.exit()
 	
 	new_state.enter()

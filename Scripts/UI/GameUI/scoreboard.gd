@@ -20,7 +20,6 @@ func add_player(player_name, player_id):
 func remove_player(player_id):
 	for label in get_tree().get_nodes_in_group(str(player_id)):
 		label.queue_free()
-	
 
 func add_label_to_grid_container(label_text:String, group= null):
 	var label = Label.new()
@@ -30,10 +29,10 @@ func add_label_to_grid_container(label_text:String, group= null):
 	grid_container.add_child(label)
 
 @rpc("any_peer", "call_local", "reliable")
-func change_score(player):
-	var score_nodes = get_tree().get_nodes_in_group(str(player.peer_id))
+func change_score(new_scores, peer_id):
+	var score_nodes = get_tree().get_nodes_in_group(str(peer_id))
 	for i in score_nodes.size()-1:
-		score_nodes[i+1].set_text(str(player.scores[i]))
+		score_nodes[i+1].set_text(str(new_scores[i]))
 
 func _on_leave_lobby_button_pressed():
 	for peer in multiplayer.get_peers():

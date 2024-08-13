@@ -1,7 +1,6 @@
 extends RigidBody2D
 
 signal scored
-signal score_change
 signal shot
 signal reset(pos)
 signal kill
@@ -24,24 +23,9 @@ var spawn_position: Vector2
 var _kill_player = false
 var _reset_player = false
 
-var scores: Array:
-	get = get_scores, set = set_scores
-		
-func get_scores():
-	return scores
-
-@rpc("any_peer", "call_local", "reliable")	
-func set_scores(new_scores):
-	score_change.emit()
-	scores = new_scores
-
-func set_data(fplayer_id:int, fplayer_name:String, fnumber_of_rounds:int, fspawn_position:Vector2):
+func set_data(fplayer_id:int, fplayer_name:String, fspawn_position:Vector2):
 	peer_id = fplayer_id
 	player_name = fplayer_name
-	var init_scores = []
-	init_scores.resize(fnumber_of_rounds)
-	init_scores.fill(0)
-	scores = init_scores
 	spawn_position = fspawn_position
 
 func _enter_tree():
