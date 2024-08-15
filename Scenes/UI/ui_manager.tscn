@@ -91,7 +91,16 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="LeaveLobbyButton" type="Button" parent="ScoreBoard/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreBoard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackToLobbyButton" type="Button" parent="ScoreBoard/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Back To Lobby"
+
+[node name="LeaveLobbyButton" type="Button" parent="ScoreBoard/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Leave Lobby"
 
@@ -181,7 +190,8 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 text = "next"
 
-[connection signal="pressed" from="ScoreBoard/MarginContainer/VBoxContainer/LeaveLobbyButton" to="ScoreBoard" method="_on_leave_lobby_button_pressed"]
+[connection signal="pressed" from="ScoreBoard/MarginContainer/VBoxContainer/HBoxContainer/BackToLobbyButton" to="ScoreBoard" method="_on_back_to_lobby_button_pressed"]
+[connection signal="pressed" from="ScoreBoard/MarginContainer/VBoxContainer/HBoxContainer/LeaveLobbyButton" to="ScoreBoard" method="_on_leave_lobby_button_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer/CyclePrevious" to="SpectatingControl" method="_on_cycle_previous_pressed"]
 [connection signal="pressed" from="SpectatingControl/MarginContainer/VBoxContainer/HBoxContainer/CycleNext" to="SpectatingControl" method="_on_cycle_next_pressed"]

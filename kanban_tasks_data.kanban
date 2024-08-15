@@ -29,12 +29,11 @@
 				"d8629454-9815-4265-9e09-3d73c6f0c235",
 				"ec0ec9c3-0bc3-4787-8305-c645f2944370",
 				"80e64f6f-c282-4b6b-af3c-503c59ac162e",
-				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
+				"d30a34f0-b4a9-4e8c-a867-1f766d9ecfef",
 				"03ba63a9-75b9-4e9c-a589-4403c9a50b28",
 				"f5544e6b-6e13-4409-8e3e-5e8a67ae31fa",
 				"181e3544-4532-44bd-8b32-5f0ded50a335",
 				"c19fb982-91f8-483a-aaa5-7954a173a92a",
-				"95228139-4b26-4ded-a6bb-80b80404b464",
 				"e4c6e8cc-f4c5-4a61-abb6-1254f1a1a07a",
 				"918e1c7f-cd5a-469f-a908-1d1f68fd4a17",
 				"5199332b-07da-4f1f-b748-f8ebf6620063",
@@ -51,9 +50,7 @@
 		{
 			"uuid": "df1227e8-39da-4146-8aed-1089d584de52",
 			"title": "Doing",
-			"tasks": [
-				"132e1877-78c7-4490-8c66-af3e65c0026c"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "486ebc10-f00d-4ffe-8442-91bece2f4bfc",
@@ -65,6 +62,12 @@
 				"473d191c-eec8-40d5-a993-e24e04890c41",
 				"69d6efe4-8f6f-44eb-9812-0e3ad14e7210",
 				"4a26492e-d799-4f7d-8c61-d9e269309977",
+				"0735d0ff-99bc-4ac9-a693-ed62c4ee5400",
+				"95228139-4b26-4ded-a6bb-80b80404b464",
+				"ffbb5c48-41ce-4978-bee6-983e31a94bb7",
+				"56febbd1-6b45-430d-96a7-92548d33de07",
+				"e24ba56c-24fc-4bf1-a5b8-f938fb4fdd34",
+				"132e1877-78c7-4490-8c66-af3e65c0026c",
 				"9dc0f560-1717-4f84-8865-a8c2ee6547f8",
 				"d78a9220-25a4-400c-8cb2-25e442b3c224",
 				"f3101777-b44c-45fa-b352-06d96039b066",
@@ -368,6 +371,34 @@
 			"title": "Wall",
 			"description": "",
 			"category": "8034ca2b-4558-4855-be93-e750061b342f",
+			"steps": []
+		},
+		{
+			"uuid": "e24ba56c-24fc-4bf1-a5b8-f938fb4fdd34",
+			"title": "Show lobbyid to people in lobby",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "d30a34f0-b4a9-4e8c-a867-1f766d9ecfef",
+			"title": "non hosts dont see eachothers movement",
+			"description": "geen idee wat het had veroorzaakt met 4 spelers werkt het",
+			"category": "8d3f1b7a-7c58-458d-8403-6ce3523acb8d",
+			"steps": []
+		},
+		{
+			"uuid": "ffbb5c48-41ce-4978-bee6-983e31a94bb7",
+			"title": "Only host: be able to kick a player",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
+			"steps": []
+		},
+		{
+			"uuid": "56febbd1-6b45-430d-96a7-92548d33de07",
+			"title": "leave lobby button on lobby menu",
+			"description": "",
+			"category": "038de0ae-b2c5-4d13-8fee-d303a062826c",
 			"steps": []
 		}
 	],
